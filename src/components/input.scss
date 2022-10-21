@@ -1,0 +1,44 @@
+.input {
+  position: relative;
+  margin: 20px 0;
+
+  input {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--main-text-color);
+    border-bottom: 1px solid var(--main-border-color);
+
+    &:focus {
+      border-color: var(--accent-border-color);
+    }
+
+    &:focus + .placeholder-text {
+      transform: translate(0, -90%);
+      font-size: 10px;
+    }
+  }
+
+  input:not([value=""]) + .placeholder-text {
+    transform: translate(0, -90%);
+    font-size: 12px;
+  }
+
+  .placeholder-text {
+    position: absolute;
+    top: 0;
+    bottom: 7px;
+    left: 0;
+    right: 0;
+    border: 3px solid transparent;
+    background-color: transparent;
+    color: var(--secondary-text-color);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    font-size: 12px;
+    font-weight: 300;
+    transition: 0.15s ease-out;
+  }
+}

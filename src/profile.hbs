@@ -1,0 +1,38 @@
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/main.scss" />
+    <link rel="stylesheet" href="./styles/profile.scss" />
+    <title>Мой профиль</title>
+  </head>
+  <body>
+    <div class="profile">
+      <div class="back-bar">
+        <a href="/chat">
+          <img src="./assets/back_btn.svg" alt="" />
+        </a>
+      </div>
+      <div class="profile-wrapper">
+        <div class="profile-inner">
+          <div class="profile-avatar">
+            <img src="./assets/avatar.svg" alt="" />
+            Аватар
+          </div>
+          {{> profile-line label="Почта" value="erikkhasanov@yandex.ru"}}
+          {{> profile-line label="Логин" value="Login"}}
+          {{> profile-line label="Имя" value="Иван"}}
+          {{> profile-line label="Фамилия" value="Иванов"}}
+          {{> profile-line label="Имя в чате" value="Иван"}}
+          {{> profile-line label="Телефон" value="+7(999)1212121"}}
+          <div class="profile-change">
+            <a href="/">Изменить данные</a>
+            <a href="/">Изменить пароль</a>
+            <a href="/">Выйти</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

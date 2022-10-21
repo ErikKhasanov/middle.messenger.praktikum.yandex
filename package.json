@@ -1,0 +1,23 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "repository": "git@github.com:ErikKhasanov/middle.messenger.praktikum.yandex.git",
+  "author": "erik <erikkhasanov@yandex.ru>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "start": "yarn build && node ./server.js",
+    "dev": "parcel ./src/index.hbs",
+    "build": "yarn clean && parcel build ./src/index.hbs"
+  },
+  "dependencies": {
+    "express": "4.18.2"
+  },
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@parcel/transformer-sass": "2.7.0",
+    "handlebars": "4.7.7",
+    "parcel": "2.7.0",
+    "rimraf": "3.0.2"
+  }
+}
