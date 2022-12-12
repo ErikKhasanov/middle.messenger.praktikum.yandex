@@ -25,6 +25,7 @@ body {
 
 .layout {
   display: flex;
+  min-width: 100%;
   .sidebar {
     width: 30%;
     min-height: 100vh;
@@ -37,9 +38,14 @@ body {
   }
 }
 
+.error-wrapper + .app {
+  display: flex;
+}
+
 .error-wrapper {
   display: flex;
   padding: 100px 0;
+  margin: auto;
   &__content {
     margin: auto;
     color: var(--main-text-color);
@@ -52,3 +58,6 @@ body {
     }
   }
 }
+
+@import url(./chat.scss);
+@import url(./profile.scss);

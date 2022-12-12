@@ -1,15 +1,17 @@
 import Block from "../../core/Block";
 
+import "./button.scss";
+
 interface IButton {
   label: string;
-  onClick: () => void;
 }
 
 export class Button extends Block {
-  constructor({ label, onClick }: IButton) {
-    super({ label: label, events: { click: onClick } }, "button");
+  constructor({ label }: IButton) {
+    super({ label: label });
   }
   render(): string {
-    return `{{label}}`;
+    // language=hbs
+    return `<button class="button">{{label}}</button>`;
   }
 }

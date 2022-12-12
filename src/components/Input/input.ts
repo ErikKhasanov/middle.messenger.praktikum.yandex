@@ -1,22 +1,24 @@
 import Block from "../../core/Block";
 
+import "./input.scss";
+
 interface IInput {
   id: string;
   type: string;
   label: string;
-  onInput: () => void;
 }
 
 export class Input extends Block {
-  constructor({ id, type, label, onInput }: IInput) {
-    super(
-      { id: id, type: type, label: label, events: { onInput: onInput } },
-      "div"
-    );
+  constructor({ id, type, label }: IInput) {
+    super({ id: id, type: type, label: label });
   }
   render(): string {
+    // language=hbs
     return `
-    <input value="" id={{id}} type={{type}} />
-    <label class="placeholder-text" for={{id}}>{{label}}</label>`;
+      <div class="input">
+        <label class="placeholder-text" for={{id}}>{{label}}</label>
+        <input value="" id={{id}} type={{type}} />
+      </div>
+    `;
   }
 }
