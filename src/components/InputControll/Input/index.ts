@@ -29,8 +29,6 @@ export class InputComponent extends Block {
     });
   }
   render(): string {
-    // console.log(this);
-
     return `<input class="input-controlled_input" value="{{inputValue}}" placeholder="{{placeHolder}}" id="{{id}}" type="{{type}}" />`;
   }
 }

@@ -23,6 +23,7 @@ const INIT_STATE = {
 
 const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
   login: concatValidators([
+    VALIDATORS_MAP.required({ value: login }),
     VALIDATORS_MAP.maxLength({
       value: login,
       maxLength: 20,
@@ -38,6 +39,7 @@ const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
     }),
   ]),
   password: concatValidators([
+    VALIDATORS_MAP.required({ value: login }),
     VALIDATORS_MAP.minLength({
       value: password,
       minLength: 8,
@@ -64,29 +66,28 @@ class LoginPage extends Block {
           });
         }
       },
-      // onInput: (e) => {
+
+      // TODO Вызывает перерендер
+      // onInput: (event: Event) => {
+      //   const { id, value } = event.target as HTMLInputElement;
       //   this.setState({
       //     ...this.state,
-      //     errors: VALIDATE_FORM({
-      //       login: this.state.values.login,
-      //       password: this.state.values.password,
-      //     }),
       //     values: {
       //       ...this.state.values,
-      //       [e.target.id]: e.target.value || "",
+      //       [id]: value || "",
       //     },
       //   });
       // },
-      // onBlur: () => {
-      //   // this.setState({
-      //   //   ...this.state,
-      //   //   errors: VALIDATE_FORM({
-      //   //     login: this.state.values.login,
-      //   //     password: this.state.values.password,
-      //   //   }),
-      //   // });
-      //   // console.log(this.refs.loginRef);
-      // },
+
+      onBlur: () => {
+        this.setState({
+          values: { ...this.state.values },
+          errors: VALIDATE_FORM({
+            login: this.state.values.login,
+            password: this.state.values.password,
+          }),
+        });
+      },
       onFocus: () => {
         this.state.resetErrors();
       },
@@ -123,7 +124,7 @@ class LoginPage extends Block {
       <div class="registration-form">
         <h2>Вход</h2>
         <div>
-          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}" errorText="${errors.login}" }}}
+          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" ref="loginRef" label="Логин" type="text" value="${values.login}"  errorText="${errors.login}" }}}
           {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
           {{{Button label="Авторизоваться" onClick=onLogin}}}
         </div>
