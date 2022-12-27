@@ -30,6 +30,7 @@
 }
 
 .messages {
+  display: flex;
   .select-chat {
     position: absolute;
     top: 50%;
@@ -37,5 +38,11 @@
     transform: translate(-50%, -50%);
     color: var(--secondary-text-color);
     font-size: 12px;
+  }
+  &_input {
+    margin-bottom: 0;
+    margin-top: auto;
+    min-width: 100%;
+    padding: 16px 20px 0 16px;
   }
 }

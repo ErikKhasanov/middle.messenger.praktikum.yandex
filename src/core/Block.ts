@@ -1,11 +1,14 @@
 import EventBus from "./EventBus";
 import { nanoid } from "nanoid";
-
 import Handlebars from "handlebars";
+
+interface BlockMeta<P = any> {
+  props: P;
+}
 
 type Events = Values<typeof Block.EVENTS>;
 
-export default class Block {
+export default class Block<P extends object = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -234,5 +237,13 @@ export default class Block {
      * Возвращаем фрагмент
      */
     return fragment.content;
+  }
+
+  show() {
+    this.getContent().style.display = "block";
+  }
+
+  hide() {
+    this.getContent().style.display = "none";
   }
 }

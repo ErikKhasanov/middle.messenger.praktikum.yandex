@@ -1,8 +1,8 @@
-.input {
+.input-controlled {
   position: relative;
   margin: 20px 0;
 
-  input {
+  &_input {
     width: 100%;
     border: none;
     background: none;
@@ -20,25 +20,25 @@
     }
   }
 
-  input:not([value=""]) + .placeholder-text {
+  &_input:not([value=""]) + .placeholder-text {
     transform: translate(0, -90%);
     font-size: 12px;
   }
 
-  .placeholder-text {
-    position: absolute;
-    top: 0;
-    bottom: 7px;
-    left: 0;
-    right: 0;
+  &_label {
     border: 3px solid transparent;
     background-color: transparent;
-    color: var(--secondary-text-color);
+    color: var(--main-text-color);
     display: flex;
     align-items: center;
     pointer-events: none;
     font-size: 12px;
     font-weight: 300;
-    transition: 0.15s ease-out;
+  }
+
+  &_error {
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
   }
 }

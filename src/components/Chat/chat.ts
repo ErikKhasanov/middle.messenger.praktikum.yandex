@@ -1,8 +1,17 @@
-import { Block } from "../../core";
+import { Block } from "core";
 
 import "./chat.scss";
 
-export class Chat extends Block {
+interface IChatComponent {
+  avatar: string;
+  name: string;
+  message: string;
+}
+
+export class ChatComponent extends Block {
+  constructor({ avatar, name, message }: IChatComponent) {
+    super({ avatar, name, message });
+  }
   render() {
     return `
     <div class="chat">

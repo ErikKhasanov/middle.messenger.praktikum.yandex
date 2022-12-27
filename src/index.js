@@ -5,8 +5,12 @@ import "./styles/main.scss";
 
 // Components
 import Button from "./components/Button";
-import Input from "./components/Input";
-import Chat from "./components/Chat";
+import InputControll, {
+  ErrorComponent,
+  LabelComponent,
+  InputComponent,
+} from "./components/InputControll";
+import ChatComponent from "./components/Chat";
 import ProfileSetting from "./components/ProfileSetting";
 
 // Pages
@@ -18,8 +22,11 @@ import ProfilePage from "./pages/profile";
 import RegistrationPage from "./pages/registration";
 
 registerComponent(Button);
-registerComponent(Input);
-registerComponent(Chat);
+registerComponent(InputComponent);
+registerComponent(ErrorComponent);
+registerComponent(LabelComponent);
+registerComponent(InputControll);
+registerComponent(ChatComponent);
 registerComponent(ProfileSetting);
 
 const ROUTES_MAP = {
