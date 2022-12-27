@@ -3,7 +3,8 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  background: var(--main-bg-color);
+  font-family: Inter, sans-serif;
   min-height: 100vh;
   margin: 0;
 }
@@ -12,26 +13,24 @@ body {
   --main-bg-color: #181a20;
   --secondary-bg-color: #262a34;
   --modal-border-radius: 12px;
-  --main-text-color: #ffffff;
-  --secondary-text-color: #999999;
+  --main-text-color: #fff;
+  --secondary-text-color: #999;
   --main-border-color: #494c54;
   --accent-border-color: #246bfd;
   --button-bg-color: #3369f3;
 }
 
-body {
-  background: var(--main-bg-color);
-}
-
 .layout {
   display: flex;
   min-width: 100%;
+
   .sidebar {
     width: 30%;
     min-height: 100vh;
     border-right: 2px solid var(--main-border-color);
     padding: 21px 10px;
   }
+
   .messages {
     position: relative;
     width: 70%;
@@ -46,18 +45,21 @@ body {
   display: flex;
   padding: 100px 0;
   margin: auto;
+
   &__content {
     margin: auto;
     color: var(--main-text-color);
     text-align: center;
+
     h4 {
       font-size: 32px;
     }
+
     .back-link {
       color: var(--button-bg-color);
     }
   }
 }
 
-@import url(./chat.scss);
-@import url(./profile.scss);
+@import "./chat";
+@import "./profile";

@@ -7,7 +7,7 @@
   margin: auto;
   width: 340px;
   max-width: 100%;
-  padding: 50px 30px 20px 30px;
+  padding: 50px 30px 20px;
   background: var(--secondary-bg-color);
   border-radius: var(--modal-border-radius);
   color: var(--main-text-color);
@@ -24,8 +24,10 @@
       margin: 7px 0;
     }
   }
+
   .registration-link {
     text-align: center;
+
     a {
       color: var(--button-bg-color);
       font-size: 13px;
