@@ -1,4 +1,4 @@
-import { Block } from "../../core";
+import { Block } from "core";
 
 import ErrorImg from "../../assets/404.png";
 

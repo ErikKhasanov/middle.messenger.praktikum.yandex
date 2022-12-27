@@ -1,25 +1,25 @@
-import { renderDOM, registerComponent } from "./core";
+import { renderDOM, registerComponent } from 'core';
 
 // Styles
-import "./styles/main.scss";
+import 'styles/main.scss';
 
 // Components
-import Button from "./components/Button";
+import Button from 'components/Button';
 import InputControll, {
   ErrorComponent,
   LabelComponent,
   InputComponent,
-} from "./components/InputControll";
-import ChatComponent from "./components/Chat";
-import ProfileSetting from "./components/ProfileSetting";
+} from 'components/InputControll';
+import ChatComponent from 'components/Chat';
+import ProfileSetting from 'components/ProfileSetting';
 
 // Pages
-import NotFoundPage from "./pages/404";
-import ErrorPage from "./pages/500";
-import LoginPage from "./pages/auth";
-import ChatPage from "./pages/chat";
-import ProfilePage from "./pages/profile";
-import RegistrationPage from "./pages/registration";
+import NotFoundPage from 'pages/404';
+import ErrorPage from 'pages/500';
+import LoginPage from 'pages/auth';
+import ChatPage from 'pages/chat';
+import ProfilePage from 'pages/profile';
+import RegistrationPage from 'pages/registration';
 
 registerComponent(Button);
 registerComponent(InputComponent);
@@ -30,11 +30,11 @@ registerComponent(ChatComponent);
 registerComponent(ProfileSetting);
 
 const ROUTES_MAP = {
-  "/": new LoginPage(),
-  "/auth": new LoginPage(),
-  "/registration": new RegistrationPage(),
-  "/chat": new ChatPage(),
-  "/profile": new ProfilePage(),
+  '/': new LoginPage(),
+  '/auth': new LoginPage(),
+  '/registration': new RegistrationPage(),
+  '/chat': new ChatPage(),
+  '/profile': new ProfilePage(),
 };
 
 function router() {
@@ -51,7 +51,7 @@ function router() {
   renderDOM(new NotFoundPage());
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // Init router
   router();
 });
