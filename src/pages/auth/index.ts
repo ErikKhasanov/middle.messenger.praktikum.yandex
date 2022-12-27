@@ -5,6 +5,11 @@ import { VALIDATORS_MAP, concatValidators } from "helpers/validator";
 
 import "./auth.scss";
 
+interface IAuthValidateForm {
+  login: string;
+  password: string;
+}
+
 const INIT_STATE = {
   values: {
     login: "",
@@ -16,7 +21,7 @@ const INIT_STATE = {
   },
 };
 
-const VALIDATE_FORM = ({ login, password }) => ({
+const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
   login: concatValidators([
     VALIDATORS_MAP.maxLength({
       value: login,

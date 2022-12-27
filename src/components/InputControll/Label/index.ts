@@ -1,7 +1,7 @@
 import Block from "core/Block";
 
 interface ILabelComponent {
-  id: string;
+  id?: string;
   label?: string;
 }
 

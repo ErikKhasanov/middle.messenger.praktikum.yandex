@@ -1,20 +1,36 @@
-interface IMaxLength {
+interface IValidator {
   value: string;
-  maxLength: number;
-  errorMessage: string;
+  errorMessage?: string;
 }
+
+interface IMaxLength extends IValidator {
+  maxLength: number;
+}
+
+interface IMinLength extends IValidator {
+  minLength: number;
+}
+
+interface IValidatorError {
+  error: boolean;
+  text?: string;
+}
+
+type IValidatorFunc = boolean | IValidatorError;
+
+type IConcatValidator = boolean | string;
 
 export const VALIDATORS_MAP = {
   maxLength:
-    ({ value, maxLength, errorMessage }) =>
-    () => {
+    ({ value, maxLength, errorMessage }: IMaxLength) =>
+    (): IValidatorFunc => {
       if (value.length > maxLength) {
         return { error: true, text: errorMessage };
       }
       return true;
     },
   minLength:
-    ({ value, minLength, errorMessage }) =>
+    ({ value, minLength, errorMessage }: IMinLength) =>
     () => {
       if (value.length < minLength) {
         return { error: true, text: errorMessage };
@@ -22,18 +38,18 @@ export const VALIDATORS_MAP = {
       return true;
     },
   required:
-    ({ value }) =>
+    ({ value, errorMessage }: IValidator) =>
     () => {
       if (value.length === 0) {
         return {
           error: true,
-          text: "Поле обязательно",
+          text: errorMessage || "Поле обязательно",
         };
       }
       return true;
     },
   login:
-    ({ value }) =>
+    ({ value }: IValidator) =>
     () => {
       if (/^[\d]$/gm.test(value)) {
         return {
@@ -49,8 +65,41 @@ export const VALIDATORS_MAP = {
       }
       return true;
     },
+  phone:
+    ({ value }: IValidator) =>
+    () => {
+      if (!/^\+?\d{10,15}$/gm.test(value)) {
+        return {
+          error: true,
+          text: "Неверный формат номера",
+        };
+      }
+      return true;
+    },
+  firstName:
+    ({ value }: IValidator) =>
+    () => {
+      if (!/^[A-ZА-Я]{1}[a-zA-Zа-яА-Я-]*$/gm.test(value)) {
+        return {
+          error: true,
+          text: "Имя пользователя невалидное",
+        };
+      }
+      return true;
+    },
+  secondName:
+    ({ value }: IValidator) =>
+    () => {
+      if (!/^[A-ZА-Я]{1}[a-zA-Zа-яА-Я-]*$/gm.test(value)) {
+        return {
+          error: true,
+          text: "Фамилия пользователя невалидное",
+        };
+      }
+      return true;
+    },
   email:
-    ({ value }) =>
+    ({ value }: IValidator) =>
     () => {
       if (!/^[0-9A-z]+@[0-9A-z]+\..+$/gm.test(value)) {
         return {
@@ -61,7 +110,7 @@ export const VALIDATORS_MAP = {
       return true;
     },
   password:
-    ({ value }) =>
+    ({ value }: IValidator) =>
     () => {
       if (!/[A-Z]/.test(value)) {
         return {
@@ -77,20 +126,17 @@ export const VALIDATORS_MAP = {
       }
       return true;
     },
-  message:
-    ({ value }) =>
-    () => {},
 };
 
 export const concatValidators = (validatorsArray) => {
-  let errorText;
+  let text = "";
   validatorsArray.some((validator) => {
-    const result = validator();
-    if (result.error) {
-      errorText = result.text;
+    const result: IValidatorFunc = validator();
+    if (typeof result === "object") {
+      text = result.text;
       return true;
     }
     return false;
   });
-  return errorText || "";
+  return text;
 };
