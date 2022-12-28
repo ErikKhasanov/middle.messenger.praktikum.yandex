@@ -1,6 +1,8 @@
 import { Block } from "core";
 
 export class ProfileSetting extends Block {
+  static componentName = "ProfileSetting";
+
   render() {
     return `
     <div class="profile-info">

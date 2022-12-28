@@ -11,6 +11,8 @@ interface IInputComponent {
 }
 
 export class InputComponent extends Block {
+  static componentName = "InputComponent";
+
   constructor({
     id,
     type,
@@ -28,6 +30,7 @@ export class InputComponent extends Block {
       events: { input: onInput, focus: onFocus, blur: onBlur },
     });
   }
+
   render(): string {
     return `<input class="input-controlled_input" value="{{inputValue}}" placeholder="{{placeHolder}}" id="{{id}}" type="{{type}}" />`;
   }

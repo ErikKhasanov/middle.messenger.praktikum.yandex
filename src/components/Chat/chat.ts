@@ -1,6 +1,6 @@
 import { Block } from "core";
 
-import "./chat.scss";
+import "./chat.css";
 
 interface IChatComponent {
   avatar: string;
@@ -9,9 +9,12 @@ interface IChatComponent {
 }
 
 export class ChatComponent extends Block {
+  static componentName = "ChatComponent";
+
   constructor({ avatar, name, message }: IChatComponent) {
     super({ avatar, name, message });
   }
+
   render() {
     return `
     <div class="chat">

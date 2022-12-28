@@ -3,9 +3,10 @@ import { Block } from "core";
 // Helpers
 import { VALIDATORS_MAP, concatValidators } from "helpers/validator";
 
-import "./auth.scss";
+import "./auth.css";
 
 interface IAuthValidateForm {
+  scss;
   login: string;
   password: string;
 }
