@@ -14,12 +14,14 @@ import ChatComponent from "components/Chat";
 import ProfileSetting from "components/ProfileSetting";
 
 // Pages
+import MainPage from "pages/main";
 import NotFoundPage from "pages/404";
 import ErrorPage from "pages/500";
 import LoginPage from "pages/auth";
 import ChatPage from "pages/chat";
 import ProfilePage from "pages/profile";
 import RegistrationPage from "pages/registration";
+import SettingsPage from "pages/settings";
 
 registerComponent(Button);
 registerComponent(InputComponent);
@@ -30,11 +32,13 @@ registerComponent(ChatComponent);
 registerComponent(ProfileSetting);
 
 const ROUTES_MAP = {
-  "/": new LoginPage(),
+  "/": new MainPage(),
+  "/login": new LoginPage(),
   "/auth": new LoginPage(),
   "/registration": new RegistrationPage(),
   "/chat": new ChatPage(),
   "/profile": new ProfilePage(),
+  "/settings": new SettingsPage(),
 };
 
 function router() {

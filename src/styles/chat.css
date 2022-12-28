@@ -13,20 +13,6 @@
   text-decoration: underline;
 }
 
-.profile-link a::after {
-  content: "";
-  display: block;
-  height: 7px;
-  width: 7px;
-  position: absolute;
-  right: -10px;
-  border-right: 1px solid #999;
-  border-top: 1px solid #999;
-  top: 50%;
-  transform: translateY(-50%);
-  rotate: (45deg);
-}
-
 .search {
   margin: 20px 0;
 }

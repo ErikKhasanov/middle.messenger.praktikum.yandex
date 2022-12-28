@@ -1,6 +1,6 @@
 import Block from "core/Block";
 
-import { VALIDATORS_MAP, concatValidators } from "helpers/validator";
+import { VALIDATORS_MAP, concatValidators } from "helpers/validator/validators";
 
 const INIT_STATE = {
   values: {
@@ -27,6 +27,11 @@ class ChatPage extends Block {
 
         const errors = VALIDATE_FORM({ value: formData.message });
 
+        this.setState({
+          ...this.state,
+          errors: { ...errors },
+        });
+
         if (errors.message) return;
 
         console.log(formData);
@@ -35,6 +40,8 @@ class ChatPage extends Block {
   }
 
   render() {
+    const { values, errors } = this.state;
+
     return `
     <div class="layout">
         <div class="sidebar">
@@ -50,7 +57,7 @@ class ChatPage extends Block {
         </div>
         <div class="messages">
             <div class="messages_input">
-                {{{InputControll placeHolder="Введите сообщение" onInput=onInput onBlur=onBlur onFocus=onFocus id="message" ref="messageRef" type="text"  inputValue="" errorText="" }}}
+                {{{InputControll placeHolder="Введите сообщение" onInput=onInput onBlur=onBlur onFocus=onFocus id="message" ref="messageRef" type="text"  inputValue="${values.message}" errorText="${errors.message}" }}}
                 {{{Button label="Отправить" onClick=onMessage}}}
             </div>
         </div>

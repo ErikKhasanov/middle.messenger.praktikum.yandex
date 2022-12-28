@@ -1,7 +1,7 @@
 import { Block } from "core";
 
 // Helpers
-import { VALIDATORS_MAP, concatValidators } from "helpers/validator";
+import { VALIDATORS_MAP, concatValidators } from "helpers/validator/validators";
 
 import "./auth.css";
 

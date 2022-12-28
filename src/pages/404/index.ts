@@ -2,7 +2,6 @@ import { Block } from "core";
 
 class NotFoundPage extends Block {
   render() {
-    // language=hbs
     return `
     <div class="error-wrapper">
         <div class="error-wrapper__content">
