@@ -1,6 +1,6 @@
 import Block from "core/Block";
 
-import "./button.scss";
+import "./button.css";
 
 interface IButton {
   label: string;

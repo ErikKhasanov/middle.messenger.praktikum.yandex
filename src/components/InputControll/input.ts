@@ -1,6 +1,6 @@
 import Block from "core/Block";
 
-import "./input.scss";
+import "./input.css";
 
 interface IInput {
   id: string;
