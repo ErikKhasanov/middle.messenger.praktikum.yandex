@@ -15,7 +15,8 @@
     "core": "./src/core",
     "components": "./src/components",
     "pages": "./src/pages",
-    "helpers": "./src/helpers"
+    "helpers": "./src/helpers",
+    "styles": "./src/styles"
   },
   "dependencies": {
     "express": "4.18.2"
