@@ -1,6 +1,6 @@
 import Block from "core/Block";
 
-import "./button.scss";
+import "./button.css";
 
 interface IButton {
   label: string;
@@ -8,9 +8,12 @@ interface IButton {
 }
 
 export class Button extends Block {
+  static componentName = "Button";
+
   constructor({ label, onClick }: IButton) {
     super({ label, events: { click: onClick } });
   }
+
   render(): string {
     return `<button class="button">{{label}}</button>`;
   }

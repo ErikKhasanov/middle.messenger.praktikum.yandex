@@ -1,6 +1,6 @@
 import Block from "core/Block";
 
-import "./input.scss";
+import "./input.css";
 
 interface IInput {
   id: string;
@@ -15,6 +15,8 @@ interface IInput {
 }
 
 export class InputControll extends Block {
+  static componentName = "InputControll";
+
   constructor({
     onFocus,
     onBlur,
@@ -38,6 +40,7 @@ export class InputControll extends Block {
       onInput,
     });
   }
+
   render(): string {
     return `
       <div class="input-controlled">

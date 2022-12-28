@@ -1,0 +1,44 @@
+.input-controlled {
+  position: relative;
+  margin: 20px 0;
+}
+
+.input-controlled .input-controlled_input {
+  width: 100%;
+  border: none;
+  background: none;
+  outline: none;
+  color: var(--main-text-color);
+  border-bottom: 1px solid var(--main-border-color);
+}
+
+.input-controlled .input-controlled_input:focus {
+  border-color: var(--accent-border-color);
+}
+
+.input-controlled .input-controlled_input:focus + .placeholder-text {
+  transform: translate(0, -90%);
+  font-size: 10px;
+}
+
+.input-controlled .input-controlled_input:not([value=""]) + .placeholder-text {
+  transform: translate(0, -90%);
+  font-size: 12px;
+}
+
+.input-controlled .input-controlled_label {
+  border: 3px solid transparent;
+  background-color: transparent;
+  color: var(--main-text-color);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.input-controlled .input-controlled_error {
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+}

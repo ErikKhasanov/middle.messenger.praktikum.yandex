@@ -1,0 +1,34 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.registration-form {
+  margin: auto;
+  width: 340px;
+  max-width: 100%;
+  padding: 50px 30px 20px;
+  background: var(--secondary-bg-color);
+  border-radius: var(--modal-border-radius);
+  color: var(--main-text-color);
+}
+
+.registration-form h2 {
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.registration-form form input {
+  margin: 7px 0;
+}
+
+.registration-form .registration-link {
+  text-align: center;
+}
+
+.registration-form .registration-link a {
+  color: var(--button-bg-color);
+  font-size: 13px;
+}

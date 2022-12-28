@@ -1,15 +1,13 @@
-const express = require('express');
+const express = require("express");
 
-const app = express();
+const server = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('./dist'));
-
-app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/index.html`);
+server.use(express.static("./dist"));
+server.get("/:slug", (req, res) => {
+  res.sendFile(`${__dirname}/dist/index.html`);
 });
 
-app.listen(PORT, (error) => {
-  if (error) console.error(error);
-  console.log(`Server listening on port ${PORT}`);
+server.listen(PORT, (req, res) => {
+  console.log("Start listening on port 3000");
 });
