@@ -18,8 +18,6 @@ interface IValidatorError {
 
 type IValidatorFunc = boolean | IValidatorError;
 
-type IConcatValidator = boolean | string;
-
 export const VALIDATORS_MAP = {
   maxLength:
     ({ value, maxLength, errorMessage }: IMaxLength) =>
