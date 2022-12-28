@@ -9,6 +9,8 @@ interface IChatComponent {
 }
 
 export class ChatComponent extends Block {
+  static componentName = "ChatComponent";
+
   constructor({ avatar, name, message }: IChatComponent) {
     super({ avatar, name, message });
   }

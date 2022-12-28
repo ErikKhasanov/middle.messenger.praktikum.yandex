@@ -5,9 +5,12 @@ interface IErrorComponent {
 }
 
 export class ErrorComponent extends Block {
+  static componentName = "ErrorComponent";
+
   constructor({ errorText }: IErrorComponent) {
     super({ errorText });
   }
+
   render(): string {
     return `<span class="input-controlled_error">{{errorText}}</span>`;
   }
