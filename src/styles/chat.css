@@ -1,0 +1,38 @@
+.profile-link {
+  text-align: right;
+}
+.profile-link a {
+  position: relative;
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+.profile-link a:hover {
+  text-decoration: underline;
+}
+
+.search {
+  margin: 20px 0;
+}
+
+.messages {
+  display: flex;
+}
+
+.messages .select-chat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--secondary-text-color);
+  font-size: 12px;
+}
+
+.messages .messages_input {
+  margin-bottom: 0;
+  margin-top: auto;
+  min-width: 100%;
+  padding: 16px 20px 0 16px;
+}

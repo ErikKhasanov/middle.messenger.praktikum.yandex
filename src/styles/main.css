@@ -1,0 +1,79 @@
+@import url("./chat");
+@import url("./profile");
+
+:root {
+  --main-bg-color: #181a20;
+  --secondary-bg-color: #262a34;
+  --modal-border-radius: 12px;
+  --main-text-color: #fff;
+  --secondary-text-color: #999;
+  --main-border-color: #494c54;
+  --accent-border-color: #246bfd;
+  --button-bg-color: #3369f3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--main-bg-color);
+  font-family: Inter, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.main-menu ul {
+  list-style: none;
+}
+
+.main-menu ul li a {
+  color: var(--main-text-color);
+}
+
+.layout {
+  display: flex;
+  min-width: 100%;
+}
+
+.layout .sidebar {
+  width: 30%;
+  min-height: 100vh;
+  border-right: 2px solid var(--main-border-color);
+  padding: 21px 10px;
+}
+
+.layout .messages {
+  position: relative;
+  width: 70%;
+}
+
+.error-wrapper + .app {
+  display: flex;
+}
+
+.error-wrapper {
+  display: flex;
+  padding: 100px 0;
+  margin: auto;
+}
+
+.error-wrapper .error-wrapper__content {
+  margin: auto;
+  color: var(--main-text-color);
+  text-align: center;
+}
+
+.error-wrapper .error-wrapper__content h4 {
+  font-size: 32px;
+}
+
+.error-wrapper .error-wrapper__content .back-link {
+  color: var(--button-bg-color);
+}
