@@ -6,14 +6,16 @@ class ErrorPage extends Block {
   render() {
     // language=hbs
     return `
+    <main>
     <div class="error-wrapper">
-        <div class="error-wrapper__content">
-        <img src=${ErrorImg} alt="404" />
-        <h1>500</h1>
-        <p>Упс... произошла ошибка</p>
-        <a class="back-link" href="/">Назад к чатам</a>
-        </div>
+    <div class="error-wrapper__content">
+    <img src=${ErrorImg} alt="404" />
+    <h1>500</h1>
+    <p>Упс... произошла ошибка</p>
+    <a class="back-link" href="/">Назад к чатам</a>
     </div>
+</div>
+    </main>
       `;
   }
 }

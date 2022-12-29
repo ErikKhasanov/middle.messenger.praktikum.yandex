@@ -132,17 +132,19 @@ class LoginPage extends Block {
     console.log(values);
 
     return `
+      <main>
       <div class="registration-form">
-        <h2>Вход</h2>
-        <form name="loginForm">
-          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
-          {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
-          {{{Button label="Авторизоваться" onClick=onLogin}}}
-        </form>
-        <div class="registration-link">
-          <a href="/registration">Нет аккаунта?</a>
-        </div>
+      <h2>Вход</h2>
+      <form name="loginForm">
+        {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
+        {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
+        {{{Button label="Авторизоваться" onClick=onLogin}}}
+      </form>
+      <div class="registration-link">
+        <a href="/registration">Нет аккаунта?</a>
       </div>
+    </div>
+      </main>
       `;
   }
 }

@@ -128,6 +128,7 @@ class RegistrationPage extends Block {
   render() {
     const { values, errors } = this.state;
     return `
+    <main>
     <div class="registration-form">
     <h2>Регистрация</h2>
     <form name="registration" class="form">
@@ -142,7 +143,8 @@ class RegistrationPage extends Block {
     <div class="registration-link">
       <a href="/login">Войти</a>
     </div>
-  </div>
+    </div>
+    </main>
         `;
   }
 }

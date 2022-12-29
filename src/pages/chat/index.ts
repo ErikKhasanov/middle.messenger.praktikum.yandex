@@ -43,25 +43,27 @@ class ChatPage extends Block {
     const { values, errors } = this.state;
 
     return `
+    <main>
     <div class="layout">
-        <div class="sidebar">
-            <div class="profile-link">
-                <a href="/profile">Профиль</a>
-            </div>
-            <div class="search">
-                {{{InputControll placeHolder="Поиск" onInput=onInput onBlur=onBlur onFocus=onFocus id="search" ref="messageRef" label="Поиск" type="text"  inputValue="" errorText="" }}}
-            </div>
-            <div class="chats-wrapper">
-                {{{ChatComponent name="Снупп Догг" message="Друзья у меня для вас новый релиз" avatar="https://avatars.mds.yandex.net/i?id=e7c1240fdddb1e6feb36eb0d9e82a707-4438849-images-thumbs&n=13"}}}
-            </div>
+    <div class="sidebar">
+        <div class="profile-link">
+            <a href="/profile">Профиль</a>
         </div>
-        <div class="messages">
-            <div class="messages_input">
-                {{{InputControll placeHolder="Введите сообщение" onInput=onInput onBlur=onBlur onFocus=onFocus id="message" ref="messageRef" type="text"  inputValue="${values.message}" errorText="${errors.message}" }}}
-                {{{Button label="Отправить" onClick=onMessage}}}
-            </div>
+        <div class="search">
+            {{{InputControll placeHolder="Поиск" onInput=onInput onBlur=onBlur onFocus=onFocus id="search" ref="messageRef" label="Поиск" type="text"  inputValue="" errorText="" }}}
+        </div>
+        <div class="chats-wrapper">
+            {{{ChatComponent name="Снупп Догг" message="Друзья у меня для вас новый релиз" avatar="https://avatars.mds.yandex.net/i?id=e7c1240fdddb1e6feb36eb0d9e82a707-4438849-images-thumbs&n=13"}}}
         </div>
     </div>
+    <div class="messages">
+        <div class="messages_input">
+            {{{InputControll placeHolder="Введите сообщение" onInput=onInput onBlur=onBlur onFocus=onFocus id="message" ref="messageRef" type="text"  inputValue="${values.message}" errorText="${errors.message}" }}}
+            {{{Button label="Отправить" onClick=onMessage}}}
+        </div>
+    </div>
+</div>
+    </main>
         `;
   }
 }

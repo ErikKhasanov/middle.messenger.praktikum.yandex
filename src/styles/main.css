@@ -1,6 +1,17 @@
 @import url("./chat");
 @import url("./profile");
 
+:root {
+  --main-bg-color: #181a20;
+  --secondary-bg-color: #262a34;
+  --modal-border-radius: 12px;
+  --main-text-color: #fff;
+  --secondary-text-color: #999;
+  --main-border-color: #494c54;
+  --accent-border-color: #246bfd;
+  --button-bg-color: #3369f3;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -12,15 +23,10 @@ body {
   margin: 0;
 }
 
-:root {
-  --main-bg-color: #181a20;
-  --secondary-bg-color: #262a34;
-  --modal-border-radius: 12px;
-  --main-text-color: #fff;
-  --secondary-text-color: #999;
-  --main-border-color: #494c54;
-  --accent-border-color: #246bfd;
-  --button-bg-color: #3369f3;
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
 }
 
 .main-menu ul {
