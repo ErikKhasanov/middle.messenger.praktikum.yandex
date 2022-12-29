@@ -140,7 +140,7 @@ class RegistrationPage extends Block {
       {{{Button label="Зарегистрироваться" onClick=onRegistration}}}
     </form>
     <div class="registration-link">
-      <a href="/auth">Войти</a>
+      <a href="/login">Войти</a>
     </div>
   </div>
         `;

@@ -85,6 +85,7 @@ class LoginPage extends Block {
       ...INIT_STATE,
 
       onBlur: (e) => {
+        debugger;
         const field = e.target.id as keyof IForm["values"];
         //TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
@@ -128,11 +129,13 @@ class LoginPage extends Block {
 
   render() {
     const { errors, values } = this.state;
+    console.log(values);
+
     return `
       <div class="registration-form">
         <h2>Вход</h2>
         <form name="loginForm">
-          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" ref="loginRef" label="Логин" type="text" value="${values.login}"  errorText="${errors.login}" }}}
+          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
           {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
           {{{Button label="Авторизоваться" onClick=onLogin}}}
         </form>
