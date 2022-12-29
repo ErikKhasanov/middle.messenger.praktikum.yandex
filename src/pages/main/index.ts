@@ -5,7 +5,7 @@ class MainPage extends Block {
     return `
       <nav class="main-menu">
         <ul>
-          <li><a href="/auth">Авторизация</a></li>
+          <li><a href="/login">Авторизация</a></li>
           <li><a href="/registration">Регистрация</a></li>
           <li><a href="/chat">Чат</a></li>
           <li><a href="/profile">Профиль</a></li>

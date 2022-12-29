@@ -33,7 +33,6 @@ registerComponent(ProfileSetting);
 const ROUTES_MAP = {
   "/": new MainPage(),
   "/login": new LoginPage(),
-  "/auth": new LoginPage(),
   "/registration": new RegistrationPage(),
   "/chat": new ChatPage(),
   "/profile": new ProfilePage(),
