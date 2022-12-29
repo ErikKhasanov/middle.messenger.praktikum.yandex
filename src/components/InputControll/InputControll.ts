@@ -4,6 +4,7 @@ import "./input.css";
 
 interface IInput {
   id: string;
+  name: string;
   type?: string;
   label?: string;
   inputValue: string | number;
@@ -22,6 +23,7 @@ export class InputControll extends Block {
     onBlur,
     onInput,
     id,
+    name,
     type,
     label,
     inputValue,
@@ -30,6 +32,7 @@ export class InputControll extends Block {
   }: IInput) {
     super({
       id,
+      name,
       type,
       label,
       inputValue,
@@ -47,10 +50,11 @@ export class InputControll extends Block {
         {{{LabelComponent
           id=id
           label=label
+          errorText=errorText
         }}}
-        {{#if errorText}}{{{ErrorComponent ref=errorRef errorText=errorText}}}{{/if}}
         {{{InputComponent
           id=id
+          name=name
           type=type
           placeHolder=placeHolder
           inputValue=inputValue

@@ -3,6 +3,7 @@ import Block from "./Block";
 
 interface BlockConstructable<Props = any> {
   new (props: Props): Block;
+  componentName: string;
 }
 
 export default function registerComponent<Props extends any>(
