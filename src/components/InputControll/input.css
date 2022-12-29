@@ -31,13 +31,14 @@
   background-color: transparent;
   color: var(--main-text-color);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   pointer-events: none;
   font-size: 12px;
   font-weight: 300;
 }
 
 .input-controlled .input-controlled_error {
+  margin-top: 5px;
   color: red;
   font-size: 12px;
   font-weight: 500;

@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "start": "npm run build && node ./server.js",
-    "dev": "parcel ./src/index.html --no-source-maps --no-cache",
+    "dev": "parcel ./src/index.html --no-cache",
     "build": "npm run clean && parcel build ./src/index.html",
     "lint": "npx eslint --fix --ext .js,.jsx && npx stylelint --allow-empty-input **/*.css"
   },

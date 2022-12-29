@@ -2,6 +2,7 @@ import Block from "core/Block";
 
 interface IInputComponent {
   id: string;
+  name: string;
   type?: "text" | "number" | "password" | "email";
   placeHolder?: string;
   inputValue: string | number;
@@ -15,6 +16,7 @@ export class InputComponent extends Block {
 
   constructor({
     id,
+    name,
     type,
     placeHolder,
     inputValue,
@@ -24,6 +26,7 @@ export class InputComponent extends Block {
   }: IInputComponent) {
     super({
       id,
+      name,
       type,
       placeHolder,
       inputValue,
@@ -32,6 +35,6 @@ export class InputComponent extends Block {
   }
 
   render(): string {
-    return `<input class="input-controlled_input" value="{{inputValue}}" placeholder="{{placeHolder}}" id="{{id}}" type="{{type}}" />`;
+    return `<input class="input-controlled_input" value="{{inputValue}}" placeholder="{{placeHolder}}" id="{{id}}" name="{{name}}" type="{{type}}" />`;
   }
 }

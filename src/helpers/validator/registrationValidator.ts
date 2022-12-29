@@ -1,5 +1,6 @@
 import { concatValidators, VALIDATORS_MAP } from "./validators";
 
+//TODO Сделать возможность проверки по одному параметру
 export const REGISTRATION_VALIDATOR = ({
   login,
   password,

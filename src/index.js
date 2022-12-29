@@ -5,8 +5,8 @@ import "styles/main.css";
 
 // Components
 import Button from "components/Button";
-import InputControll, {
-  ErrorComponent,
+import {
+  InputControll,
   LabelComponent,
   InputComponent,
 } from "components/InputControll";
@@ -17,7 +17,7 @@ import ProfileSetting from "components/ProfileSetting";
 import MainPage from "pages/main";
 import NotFoundPage from "pages/404";
 import ErrorPage from "pages/500";
-import LoginPage from "pages/auth";
+import LoginPage from "pages/login";
 import ChatPage from "pages/chat";
 import ProfilePage from "pages/profile";
 import RegistrationPage from "pages/registration";
@@ -25,7 +25,6 @@ import SettingsPage from "pages/settings";
 
 registerComponent(Button);
 registerComponent(InputComponent);
-registerComponent(ErrorComponent);
 registerComponent(LabelComponent);
 registerComponent(InputControll);
 registerComponent(ChatComponent);
