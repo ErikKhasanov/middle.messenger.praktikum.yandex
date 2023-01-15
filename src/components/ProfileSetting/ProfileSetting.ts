@@ -1,7 +1,7 @@
-import { Block } from "core";
+import { Block } from 'core';
 
 export class ProfileSetting extends Block {
-  static componentName = "ProfileSetting";
+  static componentName = 'ProfileSetting';
 
   render() {
     return `

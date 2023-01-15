@@ -1,13 +1,13 @@
-import Block from "core/Block";
+import Block from 'core/Block';
 
-import { VALIDATORS_MAP, concatValidators } from "helpers/validator/validators";
+import { VALIDATORS_MAP, concatValidators } from 'helpers/validator/validators';
 
 const INIT_STATE = {
   values: {
-    message: "",
+    message: '',
   },
   errors: {
-    message: "",
+    message: '',
   },
 };
 
@@ -16,13 +16,12 @@ const VALIDATE_FORM = ({ value }) => ({
 });
 
 class ChatPage extends Block {
-  protected getStateFromProps(props: any): void {
+  protected getStateFromProps(): void {
     this.state = {
       ...INIT_STATE,
       onMessage: () => {
         const formData = {
-          message: (this.refs.messageRef.lastElementChild as HTMLInputElement)
-            .value,
+          message: (this.refs.messageRef.lastElementChild as HTMLInputElement).value,
         };
 
         const errors = VALIDATE_FORM({ value: formData.message });

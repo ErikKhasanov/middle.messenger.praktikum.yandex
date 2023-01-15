@@ -1,8 +1,8 @@
-import { Block } from "core";
+import { Block } from 'core';
 
-import { REGISTRATION_VALIDATOR } from "helpers/validator/registrationValidator";
+import { REGISTRATION_VALIDATOR } from 'helpers/validator/registrationValidator';
 
-import BackImg from "../../assets/back_btn.svg";
+import BackImg from '../../assets/back_btn.svg';
 
 interface IForm {
   values: {
@@ -25,39 +25,36 @@ interface IForm {
 
 const INIT_STATE: IForm = {
   values: {
-    email: "",
-    login: "",
-    phone: "",
-    firstName: "",
-    secondName: "",
-    password: "",
+    email: '',
+    login: '',
+    phone: '',
+    firstName: '',
+    secondName: '',
+    password: '',
   },
   errors: {
-    email: "",
-    login: "",
-    phone: "",
-    firstName: "",
-    secondName: "",
-    password: "",
+    email: '',
+    login: '',
+    phone: '',
+    firstName: '',
+    secondName: '',
+    password: '',
   },
 };
 
 class SettingsPage extends Block {
-  getInputsValues(): IForm["values"] {
+  getInputsValues(): IForm['values'] {
     return {
       login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
       email: (this.refs.emailRef.lastElementChild as HTMLInputElement).value,
       phone: (this.refs.phoneRef.lastElementChild as HTMLInputElement).value,
-      firstName: (this.refs.firsNameRef.lastElementChild as HTMLInputElement)
-        .value,
-      secondName: (this.refs.secondNameRef.lastElementChild as HTMLInputElement)
-        .value,
-      password: (this.refs.passwordRef.lastElementChild as HTMLInputElement)
-        .value,
+      firstName: (this.refs.firsNameRef.lastElementChild as HTMLInputElement).value,
+      secondName: (this.refs.secondNameRef.lastElementChild as HTMLInputElement).value,
+      password: (this.refs.passwordRef.lastElementChild as HTMLInputElement).value,
     };
   }
 
-  validateForm(formData: IForm["values"]): IForm["errors"] {
+  validateForm(formData: IForm['values']): IForm['errors'] {
     return REGISTRATION_VALIDATOR({
       login: formData.login,
       email: formData.email,
@@ -68,13 +65,13 @@ class SettingsPage extends Block {
     });
   }
 
-  protected getStateFromProps(props: any): void {
+  protected getStateFromProps(): void {
     this.state = {
       ...INIT_STATE,
 
-      onBlur: (e) => {
-        const field = e.target.id as keyof IForm["values"];
-        //TODO сделать валидацию по одному полю
+      onBlur: e => {
+        const field = e.target.id as keyof IForm['values'];
+        // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
         const error = this.validateForm(values)[field];
         const nextState = {
@@ -84,17 +81,17 @@ class SettingsPage extends Block {
         this.setState(nextState);
       },
 
-      onFocus: (e) => {
-        const field = e.target.id as keyof IForm["values"];
+      onFocus: e => {
+        const field = e.target.id as keyof IForm['values'];
         if (!this.state.errors[field]) return;
         const label = document.forms.settings.elements[field].labels[0];
         label.removeChild(label.lastElementChild);
       },
 
-      onInput: (e) => {
-        const field = e.target.id as keyof IForm["values"];
-        const value = e.target.value;
-        document.forms.settings.elements[field].setAttribute("value", value);
+      onInput: e => {
+        const field = e.target.id as keyof IForm['values'];
+        const { value } = e.target;
+        document.forms.settings.elements[field].setAttribute('value', value);
       },
 
       onRegistration: () => {
@@ -108,14 +105,7 @@ class SettingsPage extends Block {
 
         this.setState(nextState);
 
-        if (
-          errors.email ||
-          errors.login ||
-          errors.password ||
-          errors.phone ||
-          errors.firstName ||
-          errors.secondName
-        ) {
+        if (errors.email || errors.login || errors.password || errors.phone || errors.firstName || errors.secondName) {
           return;
         }
 

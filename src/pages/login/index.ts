@@ -1,9 +1,9 @@
-import { Block } from "core";
+import { Block } from 'core';
 
 // Helpers
-import { VALIDATORS_MAP, concatValidators } from "helpers/validator/validators";
+import { VALIDATORS_MAP, concatValidators } from 'helpers/validator/validators';
 
-import "./auth.css";
+import './auth.css';
 
 interface IAuthValidateForm {
   login: string;
@@ -23,12 +23,12 @@ interface IForm {
 
 const INIT_STATE: IForm = {
   values: {
-    login: "",
-    password: "",
+    login: '',
+    password: '',
   },
   errors: {
-    login: "",
-    password: "",
+    login: '',
+    password: '',
   },
 };
 
@@ -38,12 +38,12 @@ const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
     VALIDATORS_MAP.maxLength({
       value: login,
       maxLength: 20,
-      errorMessage: "Вы ввели максимальное количество символов",
+      errorMessage: 'Вы ввели максимальное количество символов',
     }),
     VALIDATORS_MAP.minLength({
       value: login,
       minLength: 3,
-      errorMessage: "Вы ввели минимальное количество символов",
+      errorMessage: 'Вы ввели минимальное количество символов',
     }),
     VALIDATORS_MAP.login({
       value: login,
@@ -54,40 +54,39 @@ const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
     VALIDATORS_MAP.minLength({
       value: password,
       minLength: 8,
-      errorMessage: "Пароль должен содержать от 8 до 40 символов",
+      errorMessage: 'Пароль должен содержать от 8 до 40 символов',
     }),
     VALIDATORS_MAP.maxLength({
       value: password,
       maxLength: 40,
-      errorMessage: "Пароль должен содержать от 8 до 40 символов",
+      errorMessage: 'Пароль должен содержать от 8 до 40 символов',
     }),
   ]),
 });
 
 class LoginPage extends Block {
-  getInputsValues(): IForm["values"] {
+  getInputsValues(): IForm['values'] {
     return {
       login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
-      password: (this.refs.passwordRef.lastElementChild as HTMLInputElement)
-        .value,
+      password: (this.refs.passwordRef.lastElementChild as HTMLInputElement).value,
     };
   }
 
-  validateForm(formData: IForm["values"]) {
+  validateForm(formData: IForm['values']) {
     return VALIDATE_FORM({
       login: formData.login,
       password: formData.password,
     });
   }
 
-  protected getStateFromProps(props: any): void {
+  protected getStateFromProps(): void {
     this.state = {
       ...INIT_STATE,
 
-      onBlur: (e) => {
+      onBlur: e => {
         debugger;
-        const field = e.target.id as keyof IForm["values"];
-        //TODO сделать валидацию по одному полю
+        const field = e.target.id as keyof IForm['values'];
+        // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
         const error = this.validateForm(values)[field];
         const nextState = {
@@ -97,17 +96,17 @@ class LoginPage extends Block {
         this.setState(nextState);
       },
 
-      onFocus: (e) => {
-        const field = e.target.id as keyof IForm["values"];
+      onFocus: e => {
+        const field = e.target.id as keyof IForm['values'];
         if (!this.state.errors[field]) return;
         const label = document.forms.loginForm.elements[field].labels[0];
         label.removeChild(label.lastElementChild);
       },
 
-      onInput: (e) => {
-        const field = e.target.id as keyof IForm["values"];
-        const value = e.target.value;
-        document.forms.loginForm.elements[field].setAttribute("value", value);
+      onInput: e => {
+        const field = e.target.id as keyof IForm['values'];
+        const { value } = e.target;
+        document.forms.loginForm.elements[field].setAttribute('value', value);
       },
 
       onLogin: () => {

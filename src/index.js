@@ -1,27 +1,23 @@
-import { renderDOM, registerComponent } from "core";
+import { renderDOM, registerComponent } from 'core';
 
 // Styles
-import "styles/main.css";
+import 'styles/main.css';
 
 // Components
-import Button from "components/Button";
-import {
-  InputControll,
-  LabelComponent,
-  InputComponent,
-} from "components/InputControll";
-import ChatComponent from "components/Chat";
-import ProfileSetting from "components/ProfileSetting";
+import Button from 'components/Button';
+import { InputControll, LabelComponent, InputComponent } from 'components/InputControll';
+import ChatComponent from 'components/Chat';
+import ProfileSetting from 'components/ProfileSetting';
 
 // Pages
-import MainPage from "pages/main";
-import NotFoundPage from "pages/404";
-import ErrorPage from "pages/500";
-import LoginPage from "pages/login";
-import ChatPage from "pages/chat";
-import ProfilePage from "pages/profile";
-import RegistrationPage from "pages/registration";
-import SettingsPage from "pages/settings";
+import MainPage from 'pages/main';
+import NotFoundPage from 'pages/404';
+import ErrorPage from 'pages/500';
+import LoginPage from 'pages/login';
+import ChatPage from 'pages/chat';
+import ProfilePage from 'pages/profile';
+import RegistrationPage from 'pages/registration';
+import SettingsPage from 'pages/settings';
 
 registerComponent(Button);
 registerComponent(InputComponent);
@@ -31,12 +27,12 @@ registerComponent(ChatComponent);
 registerComponent(ProfileSetting);
 
 const ROUTES_MAP = {
-  "/": new MainPage(),
-  "/login": new LoginPage(),
-  "/registration": new RegistrationPage(),
-  "/chat": new ChatPage(),
-  "/profile": new ProfilePage(),
-  "/settings": new SettingsPage(),
+  '/': new MainPage(),
+  '/login': new LoginPage(),
+  '/registration': new RegistrationPage(),
+  '/chat': new ChatPage(),
+  '/profile': new ProfilePage(),
+  '/settings': new SettingsPage(),
 };
 
 function router() {
@@ -53,7 +49,7 @@ function router() {
   renderDOM(new NotFoundPage());
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // Init router
   router();
 });

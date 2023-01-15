@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 enum METHOD {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  PATCH = "PATCH",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
 
 type Options = {
@@ -11,20 +12,14 @@ type Options = {
   data?: any;
 };
 
-type OptionsWithoutMethod = Omit<Options, "method">;
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 class HTTPTransport {
-  get(
-    url: string,
-    options: OptionsWithoutMethod = {}
-  ): Promise<XMLHttpRequest> {
+  get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
     return this.request(url, { ...options, method: METHOD.GET });
   }
 
-  request(
-    url: string,
-    options: Options = { method: METHOD.GET }
-  ): Promise<XMLHttpRequest> {
+  request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
     const { method, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -47,3 +42,5 @@ class HTTPTransport {
     });
   }
 }
+
+export default HTTPTransport;

@@ -1,4 +1,4 @@
-import Block from "core/Block";
+import Block from 'core/Block';
 
 interface ILabelComponent {
   id: string;
@@ -7,7 +7,7 @@ interface ILabelComponent {
 }
 
 export class LabelComponent extends Block {
-  static componentName = "LabelComponent";
+  static componentName = 'LabelComponent';
 
   constructor({ id, label, errorText }: ILabelComponent) {
     super({ id, label, errorText });

@@ -1,6 +1,6 @@
-import { Block } from "core";
+import { Block } from 'core';
 
-import BackImg from "../../assets/back_btn.svg";
+import BackImg from '../../assets/back_btn.svg';
 
 class ProfilePage extends Block {
   render() {
