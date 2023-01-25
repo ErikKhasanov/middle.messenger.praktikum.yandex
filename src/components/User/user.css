@@ -1,0 +1,29 @@
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--secondary-bg-color);
+  padding: 16px;
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.user-card .user-card__avatar {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  background-color: #999;
+  overflow: hidden;
+  margin-right: 16px;
+}
+
+.user-card .user-card_name {
+  font-size: 14px;
+  color: var(--main-text-color);
+}
+
+.user-card .user-card_btn {
+  width: unset;
+  padding: 10px;
+}

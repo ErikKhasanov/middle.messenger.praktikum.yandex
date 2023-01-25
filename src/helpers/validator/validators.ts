@@ -74,7 +74,7 @@ export const VALIDATORS_MAP = {
       }
       return true;
     },
-  firstName:
+  first_name:
     ({ value }: IValidator) =>
     () => {
       if (!/^[A-ZА-Я]{1}[a-zA-Zа-яА-Я-]*$/gm.test(value)) {
@@ -85,13 +85,24 @@ export const VALIDATORS_MAP = {
       }
       return true;
     },
-  secondName:
+  second_name:
     ({ value }: IValidator) =>
     () => {
       if (!/^[A-ZА-Я]{1}[a-zA-Zа-яА-Я-]*$/gm.test(value)) {
         return {
           error: true,
           text: 'Фамилия пользователя невалидное',
+        };
+      }
+      return true;
+    },
+  display_name:
+    ({ value }: IValidator) =>
+    () => {
+      if (!/[A-zА-я]/gm.test(value)) {
+        return {
+          error: true,
+          text: 'Отображаемое имя невалидное',
         };
       }
       return true;

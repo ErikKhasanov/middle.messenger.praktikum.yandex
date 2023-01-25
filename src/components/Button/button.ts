@@ -3,6 +3,7 @@ import Block from 'core/Block';
 import './button.css';
 
 interface IButton {
+  classname: string;
   label: string;
   onClick: () => void;
 }
@@ -10,11 +11,12 @@ interface IButton {
 export class Button extends Block {
   static componentName = 'Button';
 
-  constructor({ label, onClick }: IButton) {
-    super({ label, events: { click: onClick } });
+  constructor({ classname, label, onClick }: IButton) {
+    super({ classname, label, events: { click: onClick } });
   }
 
   render(): string {
-    return `<button class="button">{{label}}</button>`;
+    const { classname } = this.props;
+    return `<button class="button ${classname || ''}">{{label}}</button>`;
   }
 }

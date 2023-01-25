@@ -16,7 +16,12 @@
     "components": "./src/components",
     "pages": "./src/pages",
     "helpers": "./src/helpers",
-    "styles": "./src/styles"
+    "styles": "./src/styles",
+    "utils": "./src/utils",
+    "router": "./src/router",
+    "api": "./src/api",
+    "controllers": "./src/controllers",
+    "HOC": "./src/HOC"
   },
   "dependencies": {
     "express": "4.18.2"

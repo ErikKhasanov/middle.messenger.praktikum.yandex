@@ -1,5 +1,5 @@
-@import url("./chat");
-@import url("./profile");
+@import url('./chat');
+@import url('./profile');
 
 :root {
   --main-bg-color: #181a20;
@@ -10,6 +10,7 @@
   --main-border-color: #494c54;
   --accent-border-color: #246bfd;
   --button-bg-color: #3369f3;
+  --link-color: #3369f3;
 }
 
 * {
@@ -43,6 +44,8 @@ main {
 }
 
 .layout .sidebar {
+  display: flex;
+  flex-direction: column;
   width: 30%;
   min-height: 100vh;
   border-right: 2px solid var(--main-border-color);

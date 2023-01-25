@@ -1,9 +1,12 @@
 import { Block } from 'core';
 
+import UserController from 'controllers/UserController';
+
 // Helpers
 import { VALIDATORS_MAP, concatValidators } from 'helpers/validator/validators';
 
 import './auth.css';
+import { withStore } from 'HOC/withStore';
 
 interface IAuthValidateForm {
   login: string;
@@ -64,7 +67,7 @@ const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
   ]),
 });
 
-class LoginPage extends Block {
+class SigninPage extends Block {
   getInputsValues(): IForm['values'] {
     return {
       login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
@@ -84,7 +87,6 @@ class LoginPage extends Block {
       ...INIT_STATE,
 
       onBlur: e => {
-        debugger;
         const field = e.target.id as keyof IForm['values'];
         // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
@@ -121,6 +123,8 @@ class LoginPage extends Block {
 
         if (errors.login || errors.password) return;
 
+        this.props.store.dispatch(UserController.signin, formData);
+
         console.log(formData);
       },
     };
@@ -128,7 +132,6 @@ class LoginPage extends Block {
 
   render() {
     const { errors, values } = this.state;
-    console.log(values);
 
     return `
       <main>
@@ -140,11 +143,11 @@ class LoginPage extends Block {
         {{{Button label="Авторизоваться" onClick=onLogin}}}
       </form>
       <div class="registration-link">
-        <a href="/registration">Нет аккаунта?</a>
+        {{{Link label="Нет аккаунта?" route="/signup"}}}
       </div>
     </div>
       </main>
       `;
   }
 }
-export default LoginPage;
+export default withStore(SigninPage);
