@@ -1,5 +1,4 @@
 import { Store, renderDOM } from 'core';
-import { CoreRouter } from './Router.interface';
 
 import ChatsPage from 'pages/chats';
 import ChatPage from 'pages/chat';
@@ -50,18 +49,18 @@ const ROUTES = {
 export function initRouter(router: CoreRouter, store: Store<AppState>) {
   const routes = Object.keys(ROUTES);
   routes.forEach(path => {
-    router.use(path, params => {
+    router.use(path, (params: { [key: string]: string }) => {
       const isAuthorized = Boolean(store.getState().user);
-      // if (path === '*') {
-      //   if (isAuthorized) {
-      //     router.go('/chats');
-      //     store.dispatch({ screen: ROUTES['/chats'], params });
-      //   } else {
-      //     router.go('/signin');
-      //     store.dispatch({ screen: ROUTES['/signin'], params });
-      //   }
-      //   return;
-      // }
+      if (path === '*') {
+        if (isAuthorized) {
+          router.go('/chats');
+          store.dispatch({ screen: ROUTES['/chats'], params });
+        } else {
+          router.go('/signin');
+          store.dispatch({ screen: ROUTES['/signin'], params });
+        }
+        return;
+      }
 
       if (isAuthorized || !ROUTES[path].shouldAuthorized) {
         store.dispatch({ screen: ROUTES[path], params });

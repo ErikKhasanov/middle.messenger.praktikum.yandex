@@ -37,9 +37,10 @@ class ChatsPage extends Block {
 
   render() {
     return `
-    <main>
-    <div class="layout">
-    <div class="sidebar">
+    {{#Layout isLoading=store.state.isLoading}}
+      <main>
+      <div class="layout">
+      <div class="sidebar">
         <div class="profile-link">
           {{{Link label="Профиль" route="/profile"}}}
         </div>
@@ -58,8 +59,8 @@ class ChatsPage extends Block {
         <div class="chats-add">{{{Button label="Создать чат" onClick=createChat}}}</div>
         </div>
       </div>
-    </main>
-        `;
+      </main>
+    {{/Layout}}`;
   }
 }
 

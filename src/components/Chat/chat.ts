@@ -6,8 +6,9 @@ interface IChatComponent {
   avatar: string;
   name: string;
   lastMessage: string;
-  id: number;
-  onClick: () => void;
+  id: string;
+  // eslint-disable-next-line no-unused-vars
+  onClick: (id: string) => void;
 }
 
 const DEFAULT_AVATAR = 'https://via.placeholder.com/100';

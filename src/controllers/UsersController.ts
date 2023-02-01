@@ -3,48 +3,63 @@ import { Dispatch } from 'core/Store';
 
 const UsersController = {
   changeProfile: (dispatch: Dispatch<AppState>, state: AppState, action) => {
-    UsersApi.changeProfie(action).then(res => {
-      const response = JSON.parse(res.response);
-      if (res.status !== 200) {
-        if (response.reason) {
-          alert(response.reason);
-          return;
+    dispatch({ isLoading: true });
+    UsersApi.changeProfie(action)
+      .then(res => {
+        const response = JSON.parse(res.response);
+        if (res.status !== 200) {
+          if (response.reason) {
+            alert(response.reason);
+            return;
+          }
+          alert('Произошла неизвестная ошибка');
+          console.error(res);
         }
-        alert('Произошла неизвестная ошибка');
-        console.error(res);
-      }
-      dispatch({ user: response });
-    });
+        dispatch({ user: response });
+      })
+      .finally(() => {
+        dispatch({ isLoading: false });
+      });
   },
 
   changeAvatar: (dispatch: Dispatch<AppState>, state: AppState, action) => {
-    UsersApi.changeAvatar(action).then(res => {
-      const response = JSON.parse(res.response);
-      if (res.status !== 200) {
-        if (response.reason) {
-          alert(response.reason);
-          return;
+    dispatch({ isLoading: true });
+    UsersApi.changeAvatar(action)
+      .then(res => {
+        const response = JSON.parse(res.response);
+        if (res.status !== 200) {
+          if (response.reason) {
+            alert(response.reason);
+            return;
+          }
+          alert('Произошла неизвестная ошибка');
+          console.error(res);
         }
-        alert('Произошла неизвестная ошибка');
-        console.error(res);
-      }
-      dispatch({ user: response });
-    });
+        dispatch({ user: response });
+      })
+      .finally(() => {
+        dispatch({ isLoading: false });
+      });
   },
 
   changePassword: (dispatch: Dispatch<AppState>, state: AppState, action) => {
-    UsersApi.changePassword(action).then(res => {
-      const response = JSON.parse(res.response);
-      if (res.status !== 200) {
-        if (response.reason) {
-          alert(response.reason);
-          return;
+    dispatch({ isLoading: true });
+    UsersApi.changePassword(action)
+      .then(res => {
+        const response = JSON.parse(res.response);
+        if (res.status !== 200) {
+          if (response.reason) {
+            alert(response.reason);
+            return;
+          }
+          alert('Произошла неизвестная ошибка');
+          console.error(res);
         }
-        alert('Произошла неизвестная ошибка');
-        console.error(res);
-      }
-      alert('Пароль изменен');
-    });
+        alert('Пароль изменен');
+      })
+      .finally(() => {
+        dispatch({ isLoading: false });
+      });
   },
 };
 
