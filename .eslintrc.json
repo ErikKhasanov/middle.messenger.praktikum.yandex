@@ -1,12 +1,18 @@
 {
-  "extends": "airbnb",
+  "extends": ["eslint:recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "max-len": [2, 100],
+    "prettier/prettier": "error",
+    "max-len": [2, 140],
     "@typescript-eslint/no-unused-vars": 2,
     "no-debugger": "off",
-    "no-console": 0
+    "no-console": 0,
+    // TODO пофиксить
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-restricted-exports": "off",
+    "class-methods-use-this": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2020,
@@ -14,7 +20,16 @@
   },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"]
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-undef": "off",
+        // Правило дублируется
+        "@typescript-eslint/no-unused-vars": "off"
+      },
+      "extends": [
+        // Отключает конфликтующие с prettier правила
+        "prettier"
+      ]
     }
   ],
   "env": {

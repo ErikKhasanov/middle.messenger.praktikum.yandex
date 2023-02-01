@@ -4,7 +4,8 @@
     "color-hex-case": "lower",
     "no-invalid-position-at-import-rule": null,
     "rule-empty-line-before": null,
-    "selector-class-pattern": null
+    "selector-class-pattern": null,
+    "string-quotes": "single"
   },
   "ignoreFiles": ["dist/*"]
 }

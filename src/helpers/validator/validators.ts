@@ -41,7 +41,7 @@ export const VALIDATORS_MAP = {
       if (value.length === 0) {
         return {
           error: true,
-          text: errorMessage || "Поле обязательно",
+          text: errorMessage || 'Поле обязательно',
         };
       }
       return true;
@@ -52,13 +52,13 @@ export const VALIDATORS_MAP = {
       if (/^[\d]$/gm.test(value)) {
         return {
           error: true,
-          text: "Логин не может состоять только из цифр",
+          text: 'Логин не может состоять только из цифр',
         };
       }
       if (!/^[0-9A-z_-]+$/gm.test(value)) {
         return {
           error: true,
-          text: "от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)",
+          text: 'от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)',
         };
       }
       return true;
@@ -69,29 +69,40 @@ export const VALIDATORS_MAP = {
       if (!/^\+?\d{10,15}$/gm.test(value)) {
         return {
           error: true,
-          text: "Неверный формат номера",
+          text: 'Неверный формат номера',
         };
       }
       return true;
     },
-  firstName:
+  first_name:
     ({ value }: IValidator) =>
     () => {
       if (!/^[A-ZА-Я]{1}[a-zA-Zа-яА-Я-]*$/gm.test(value)) {
         return {
           error: true,
-          text: "Имя пользователя невалидное",
+          text: 'Имя пользователя невалидное',
         };
       }
       return true;
     },
-  secondName:
+  second_name:
     ({ value }: IValidator) =>
     () => {
       if (!/^[A-ZА-Я]{1}[a-zA-Zа-яА-Я-]*$/gm.test(value)) {
         return {
           error: true,
-          text: "Фамилия пользователя невалидное",
+          text: 'Фамилия пользователя невалидное',
+        };
+      }
+      return true;
+    },
+  display_name:
+    ({ value }: IValidator) =>
+    () => {
+      if (!/[A-zА-я]/gm.test(value)) {
+        return {
+          error: true,
+          text: 'Отображаемое имя невалидное',
         };
       }
       return true;
@@ -102,7 +113,7 @@ export const VALIDATORS_MAP = {
       if (!/^[0-9A-z]+@[0-9A-z]+\..+$/gm.test(value)) {
         return {
           error: true,
-          text: "email невалидный",
+          text: 'email невалидный',
         };
       }
       return true;
@@ -113,24 +124,24 @@ export const VALIDATORS_MAP = {
       if (!/[A-Z]/.test(value)) {
         return {
           error: true,
-          text: "Пароль должен содержать одну заглавную букву",
+          text: 'Пароль должен содержать одну заглавную букву',
         };
       }
       if (!/[0-9]]/.test(value)) {
         return {
           error: true,
-          text: "Пароль должен содержать одну цифру",
+          text: 'Пароль должен содержать одну цифру',
         };
       }
       return true;
     },
 };
 
-export const concatValidators = (validatorsArray) => {
-  let text = "";
-  validatorsArray.some((validator) => {
+export const concatValidators = validatorsArray => {
+  let text = '';
+  validatorsArray.some(validator => {
     const result: IValidatorFunc = validator();
-    if (typeof result === "object") {
+    if (typeof result === 'object') {
       text = result.text;
       return true;
     }

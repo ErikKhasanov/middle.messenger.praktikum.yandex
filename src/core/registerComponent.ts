@@ -1,20 +1,16 @@
-import Handlebars, { HelperOptions } from "handlebars";
-import Block from "./Block";
+import Handlebars, { HelperOptions } from 'handlebars';
+import Block from './Block';
 
 interface BlockConstructable<Props = any> {
+  // eslint-disable-next-line no-unused-vars
   new (props: Props): Block;
   componentName: string;
 }
 
-export default function registerComponent<Props extends any>(
-  Component: BlockConstructable<Props>
-) {
+export default function registerComponent<Props extends any>(Component: BlockConstructable<Props>) {
   Handlebars.registerHelper(
     Component.componentName || Component.name,
-    function (
-      this: Props,
-      { hash: { ref, ...hash }, data, fn }: HelperOptions
-    ) {
+    function (this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
       if (!data.root.children) {
         data.root.children = {};
       }
@@ -30,11 +26,8 @@ export default function registerComponent<Props extends any>(
        * внутрь блоков вручную подменяя значение
        */
       (Object.keys(hash) as any).forEach((key: keyof Props) => {
-        if (this[key] && typeof this[key] === "string") {
-          hash[key] = hash[key].replace(
-            new RegExp(`{{${key}}}`, "i"),
-            this[key]
-          );
+        if (this[key] && typeof this[key] === 'string') {
+          hash[key] = hash[key].replace(new RegExp(`{{${key}}}`, 'i'), this[key]);
         }
       });
 
@@ -46,9 +39,9 @@ export default function registerComponent<Props extends any>(
         refs[ref] = component.getContent();
       }
 
-      const contents = fn ? fn(this) : "";
+      const contents = fn ? fn(this) : '';
 
       return `<div data-id="${component.id}">${contents}</div>`;
-    }
+    },
   );
 }

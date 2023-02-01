@@ -1,9 +1,9 @@
-import Block from "core/Block";
+import Block from 'core/Block';
 
 interface IInputComponent {
   id: string;
   name: string;
-  type?: "text" | "number" | "password" | "email";
+  type?: 'text' | 'number' | 'password' | 'email';
   placeHolder?: string;
   inputValue: string | number;
   onInput?: () => void;
@@ -12,18 +12,9 @@ interface IInputComponent {
 }
 
 export class InputComponent extends Block {
-  static componentName = "InputComponent";
+  static componentName = 'InputComponent';
 
-  constructor({
-    id,
-    name,
-    type,
-    placeHolder,
-    inputValue,
-    onInput,
-    onFocus,
-    onBlur,
-  }: IInputComponent) {
+  constructor({ id, name, type, placeHolder, inputValue, onInput, onFocus, onBlur }: IInputComponent) {
     super({
       id,
       name,

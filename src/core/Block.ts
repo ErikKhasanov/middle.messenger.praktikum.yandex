@@ -1,6 +1,7 @@
-import EventBus from "./EventBus";
-import { nanoid } from "nanoid";
-import Handlebars from "handlebars";
+/* eslint-disable no-unused-vars */
+import { nanoid } from 'nanoid';
+import Handlebars from 'handlebars';
+import EventBus from './EventBus';
 
 interface BlockMeta<P = any> {
   props: P;
@@ -8,24 +9,33 @@ interface BlockMeta<P = any> {
 
 type Events = Values<typeof Block.EVENTS>;
 
+export interface BlockClass<P> extends Function {
+  new (props: P): Block<P>;
+  componentName?: string;
+}
+
 export default class Block<P extends object = any> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   } as const;
 
   public id = nanoid(6);
+
   private readonly _meta: BlockMeta;
 
   protected _element: Nullable<HTMLElement> = null;
+
   protected readonly props: P;
+
   protected children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
+
   protected refs: { [key: string]: HTMLElement } = {};
 
   public constructor(props?: P) {
@@ -55,7 +65,7 @@ export default class Block<P extends object = any> {
   }
 
   _createResources() {
-    this._element = this._createDocumentElement("div");
+    this._element = this._createDocumentElement('div');
   }
 
   protected getStateFromProps(props: any): void {
@@ -118,16 +128,14 @@ export default class Block<P extends object = any> {
   }
 
   protected render(): string {
-    return "";
+    return '';
   }
 
   getContent(): HTMLElement {
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
-        if (
-          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
-        ) {
+        if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
           this.eventBus().emit(Block.EVENTS.FLOW_CDM);
         }
       }, 100);
@@ -144,7 +152,7 @@ export default class Block<P extends object = any> {
     return new Proxy(props as unknown as object, {
       get(target: Record<string, unknown>, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
         target[prop] = value;
@@ -155,7 +163,7 @@ export default class Block<P extends object = any> {
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     }) as unknown as P;
   }
@@ -165,7 +173,7 @@ export default class Block<P extends object = any> {
   }
 
   _removeEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as any;
 
     if (!events || !this._element) {
       return;
@@ -177,7 +185,7 @@ export default class Block<P extends object = any> {
   }
 
   _addEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as any;
 
     if (!events) {
       return;
@@ -189,7 +197,7 @@ export default class Block<P extends object = any> {
   }
 
   _compile(): DocumentFragment {
-    const fragment = document.createElement("template");
+    const fragment = document.createElement('template');
 
     /**
      * Рендерим шаблон
@@ -240,10 +248,10 @@ export default class Block<P extends object = any> {
   }
 
   show() {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   hide() {
-    this.getContent().style.display = "none";
+    this.getContent().style.display = 'none';
   }
 }
