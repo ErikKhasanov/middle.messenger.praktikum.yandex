@@ -31,11 +31,12 @@ class ChatPage extends Block {
           }),
         );
       },
+      onRemoveUser: (id: string) => {
+        this.props.store.dispatch(MessengerController.deleteUserFromChat, { users: [id], chatId: this.props.params.id });
+      },
     };
   }
   render() {
-    const { params } = this.props;
-
     return `
       <main>
       <div class="layout">
@@ -46,7 +47,7 @@ class ChatPage extends Block {
           <div class="chats-wrapper">
           {{#each store.state.usersInChat}}
           {{#with this}}
-              {{{User displayName=display_name firstName=first_name secondName=second_name avatar=avatar id=id chatId=${params}}}}
+              {{{User displayName=display_name firstName=first_name secondName=second_name avatar=avatar id=id onRemove=@root.onRemoveUser }}}
             {{/with}}
           {{/each}}
           </div>

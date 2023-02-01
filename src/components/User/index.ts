@@ -1,9 +1,5 @@
 import Block from 'core/Block';
 
-import { withStore } from 'HOC/withStore';
-
-import MessengerController from 'controllers/MessengerController';
-
 import './user.css';
 
 interface IUser {
@@ -13,6 +9,7 @@ interface IUser {
   avatar: string;
   id: string;
   chatId: string;
+  onRemove: () => void;
 }
 
 const DEFAULT_AVATAR = 'https://via.placeholder.com/100';
@@ -20,16 +17,14 @@ const DEFAULT_AVATAR = 'https://via.placeholder.com/100';
 class User extends Block {
   static componentName = 'User';
 
-  constructor({ displayName, firstName, secondName, avatar, id, chatId }: IUser) {
-    super({ displayName, firstName, secondName, avatar, id, chatId });
+  constructor({ displayName, firstName, secondName, avatar, id, onRemove }: IUser) {
+    super({ displayName, firstName, secondName, avatar, id, onRemove });
   }
 
-  protected getStateFromProps(props: any): void {
+  protected getStateFromProps(): void {
     this.state = {
-      onRemoveUser: () => {
-        console.log(props);
-
-        window.store.dispatch(MessengerController.deleteUserFromChat, { users: [this.props.id], chatId: this.props.chatId });
+      onRemoveWrapper: () => {
+        this.props.onRemove(this.props.id);
       },
     };
   }
@@ -44,10 +39,10 @@ class User extends Block {
         <img src="${avatarUrl}" />
       </div>
       <div class="user-card_name">${name}</div>
-      {{{Button label="X" classname="user-card_btn" onClick=onRemoveUser}}}
+      {{{Button label="X" classname="user-card_btn" onClick=onRemoveWrapper}}}
     </div>
     `;
   }
 }
 
-export default withStore(User);
+export default User;

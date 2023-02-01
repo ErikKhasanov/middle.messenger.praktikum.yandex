@@ -15,6 +15,7 @@ import ProfileSetting from 'components/ProfileSetting';
 import Link from 'components/Link/link';
 import FileForm from 'components/FileForm';
 import User from 'components/User';
+import Layout from 'components/Layout';
 
 registerComponent(Button);
 registerComponent(InputComponent);
@@ -25,6 +26,7 @@ registerComponent(ProfileSetting);
 registerComponent(Link);
 registerComponent(FileForm);
 registerComponent(User);
+registerComponent(Layout);
 
 declare global {
   // eslint-disable-next-line no-unused-vars
