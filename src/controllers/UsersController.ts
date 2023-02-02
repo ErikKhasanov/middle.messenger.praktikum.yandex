@@ -17,6 +17,10 @@ const UsersController = {
         }
         dispatch({ user: response });
       })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
+      })
       .finally(() => {
         dispatch({ isLoading: false });
       });
@@ -37,6 +41,10 @@ const UsersController = {
         }
         dispatch({ user: response });
       })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
+      })
       .finally(() => {
         dispatch({ isLoading: false });
       });
@@ -56,6 +64,10 @@ const UsersController = {
           console.error(res);
         }
         alert('Пароль изменен');
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });

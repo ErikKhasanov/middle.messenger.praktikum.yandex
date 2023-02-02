@@ -11,6 +11,13 @@ const MessengerController = {
         if (res.status === 200 && res.statusText === 'OK') {
           dispatch({ chats: JSON.parse(res.response) });
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
@@ -23,6 +30,13 @@ const MessengerController = {
         if (res.status === 200 && res.statusText === 'OK') {
           MessengerController.getChats(dispatch);
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
@@ -35,6 +49,13 @@ const MessengerController = {
         if (res.status === 200 && res.statusText === 'OK') {
           dispatch({ usersInChat: JSON.parse(res.response) });
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
@@ -47,6 +68,13 @@ const MessengerController = {
         if (res.status === 200 && res.statusText === 'OK') {
           dispatch(MessengerController.getChatUsers, action.chatId);
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
@@ -59,6 +87,13 @@ const MessengerController = {
         if (res.status === 200 && res.statusText === 'OK') {
           dispatch(MessengerController.getChatUsers, action.chatId);
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
@@ -72,6 +107,13 @@ const MessengerController = {
           const token = JSON.parse(res.response).token;
           initWss(dispatch, state.messages, state.user.id, action, token);
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попопробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });

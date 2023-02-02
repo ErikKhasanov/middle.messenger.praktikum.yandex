@@ -30,7 +30,7 @@ class ChatsPage extends Block {
       },
 
       onClickChat: id => {
-        this.router.go(`/chat/${id}`);
+        this.router.go(`/messenger/${id}`);
       },
     };
   }

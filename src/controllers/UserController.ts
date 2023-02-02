@@ -19,9 +19,16 @@ const UserController = {
           return;
         }
         if (res.status === 401) {
-          // TODO заменить alert toast
-          alert(JSON.parse(res.response).reason);
+          alert('Аккаунт не найден');
+          return;
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
@@ -36,10 +43,17 @@ const UserController = {
           PathRouter.go('/chats');
           return;
         }
+        if (res.status >= 400) {
+          throw new Error(res.response);
+        }
         if (res.status !== 200) {
           // TODO заменить alert toast
           alert(JSON.parse(res.response).reason);
         }
+      })
+      .catch(error => {
+        alert('Произошла ошибка, попробуйте позднее');
+        console.error(error);
       })
       .finally(() => {
         dispatch({ isLoading: false });
