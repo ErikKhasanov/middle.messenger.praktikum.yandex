@@ -1,35 +1,42 @@
-export const initWss = (dispatch, messages = [], userId, chatId, token) => {
-  const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+import { Dispatch } from 'core/Store';
 
-  socket.addEventListener('open', () => {
-    console.log('Соединение установлено');
-  });
+export const initWss = (dispatch: Dispatch<AppState>, messages = [], userId, chatId, token) => {
+  try {
+    const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
 
-  socket.addEventListener('close', event => {
-    if (event.wasClean) {
-      console.log('Соединение закрыто чисто');
-    } else {
-      console.log('Обрыв соединения');
-    }
+    socket.addEventListener('open', () => {
+      console.log('Соединение установлено');
+    });
 
-    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-  });
+    socket.addEventListener('close', event => {
+      if (event.wasClean) {
+        console.log('Соединение закрыто чисто');
+      } else {
+        console.log('Обрыв соединения');
+      }
 
-  socket.addEventListener('message', event => {
-    console.log('Получены данные', event.data);
-    const data = JSON.parse(event.data);
-    if (data.type === 'message') {
-      console.log(messages, data);
+      console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+    });
 
-      const newMessages = messages;
-      newMessages.push(data);
-      dispatch({ messages: newMessages });
-    }
-  });
+    socket.addEventListener('message', event => {
+      console.log('Получены данные', event.data);
+      const data = JSON.parse(event.data);
+      if (data.type === 'message') {
+        console.log(messages, data);
 
-  socket.addEventListener('error', event => {
-    console.log('Ошибка', event.message);
-  });
+        const newMessages = messages;
+        newMessages.push(data);
+        dispatch({ messages: newMessages });
+      }
+    });
 
-  dispatch({ socket: socket });
+    socket.addEventListener('error', event => {
+      console.log('Ошибка', event.message);
+    });
+
+    dispatch({ socket: socket });
+  } catch (error) {
+    alert('Произошла ошибка попробуйте позднее');
+    console.error(error);
+  }
 };

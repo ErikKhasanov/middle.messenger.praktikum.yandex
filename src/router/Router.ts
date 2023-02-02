@@ -1,7 +1,7 @@
 import { Store, renderDOM } from 'core';
 
-import ChatsPage from 'pages/chats';
-import ChatPage from 'pages/chat';
+import ChatsPage from 'pages/messenger';
+import ChatPage from 'pages/messenger[id]';
 import ProfilePage from 'pages/profile';
 import SettingsPage from 'pages/settings';
 import SignupPage from 'pages/signup';
@@ -9,12 +9,12 @@ import SigninPage from 'pages/signin';
 import ForbiddenPage from 'pages/403';
 
 const ROUTES = {
-  '/signin': {
+  '/': {
     block: SigninPage,
     shouldAuthorized: false,
     title: 'Войти в аккаунт',
   },
-  '/signup': {
+  '/sign-up': {
     block: SignupPage,
     shouldAuthorized: false,
     title: 'Зарегистрироваться',
@@ -29,12 +29,12 @@ const ROUTES = {
     shouldAuthorized: true,
     title: 'Мои настройки',
   },
-  '/chats': {
+  '/messenger': {
     block: ChatsPage,
     shouldAuthorized: true,
     title: 'Чат',
   },
-  '/chat/:id': {
+  '/messenger/:id': {
     block: ChatPage,
     shouldAuthorized: true,
     title: 'Чат',
@@ -51,13 +51,18 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) {
   routes.forEach(path => {
     router.use(path, (params: { [key: string]: string }) => {
       const isAuthorized = Boolean(store.getState().user);
+      if (path === '/' && isAuthorized) {
+        router.go('/messenger');
+        store.dispatch({ screen: ROUTES['/messenger'], params });
+        return;
+      }
       if (path === '*') {
         if (isAuthorized) {
-          router.go('/chats');
-          store.dispatch({ screen: ROUTES['/chats'], params });
+          router.go('/messenger');
+          store.dispatch({ screen: ROUTES['/messenger'], params });
         } else {
-          router.go('/signin');
-          store.dispatch({ screen: ROUTES['/signin'], params });
+          router.go('/');
+          store.dispatch({ screen: ROUTES['/'], params });
         }
         return;
       }
