@@ -20,22 +20,24 @@ interface IRequest {
   isFile?: boolean;
 }
 
+type IMethod = (url: string, method?: METHOD, data?: IData) => Promise<XMLHttpRequest>;
+
 class HTTPTransport {
-  get(url: string): Promise<XMLHttpRequest> {
+  get: IMethod = url => {
     return this.request({ url, method: METHOD.GET });
-  }
+  };
 
-  post(url: string, data?: IData): Promise<XMLHttpRequest> {
+  post: IMethod = (url, data) => {
     return this.request({ url, method: METHOD.POST, data });
-  }
+  };
 
-  delete(url: string, data: IData): Promise<XMLHttpRequest> {
+  delete: IMethod = (url, data) => {
     return this.request({ url, method: METHOD.DELETE, data });
-  }
+  };
 
-  put(url: string, data: IData, isFile = false): Promise<XMLHttpRequest> {
+  put: IMethod = (url, data, _method, isFile = false) => {
     return this.request({ url, method: METHOD.PUT, data, isFile });
-  }
+  };
 
   request({ url, method, data = null, isFile }: IRequest): Promise<XMLHttpRequest> {
     return new Promise((resolve, reject) => {
