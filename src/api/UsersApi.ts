@@ -2,7 +2,7 @@ import HTTPTransport from 'helpers/HTTPTransport';
 
 const http = new HTTPTransport();
 
-interface IChangeProfile {
+export interface IChangeProfile {
   first_name: 'string';
   second_name: 'string';
   display_name: 'string';
@@ -11,16 +11,18 @@ interface IChangeProfile {
   phone: 'string';
 }
 
-interface IChangePassword {
+export interface IChangePassword {
   oldPassword: 'string';
   newPassword: 'string';
 }
+
+export type IChangeAvatar = any;
 
 const UsersApi = {
   changeProfie: (data: IChangeProfile) => {
     return http.put('/user/profile', data);
   },
-  changeAvatar: data => {
+  changeAvatar: (data: IChangeAvatar) => {
     return http.put('/user/profile/avatar', data, true);
   },
   changePassword: (data: IChangePassword) => {

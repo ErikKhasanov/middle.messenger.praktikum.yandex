@@ -2,16 +2,16 @@ import HTTPTransport from 'helpers/HTTPTransport';
 
 const http = new HTTPTransport();
 
-interface ICreateChat {
+export interface ICreateChat {
   title: string;
 }
 
-interface IAddUserChat {
+export interface IAddUserChat {
   users: number[];
   chatId: number;
 }
 
-interface IDeleteUserFromChat {
+export interface IDeleteUserFromChat {
   users: number[];
   chatId: number;
 }
