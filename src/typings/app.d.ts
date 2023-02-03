@@ -11,6 +11,9 @@ declare global {
     loginFormError: string | null;
     user: User | null;
   };
+
+  // eslint-disable-next-line no-unused-vars
+  export type DispatchStateHandler<TAction> = (dispatch: Dispatch<AppState>, state?: AppState, action?: TAction) => Promise<void>;
 }
 
 export {};

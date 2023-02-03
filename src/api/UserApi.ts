@@ -2,12 +2,12 @@ import HTTPTransport from 'helpers/HTTPTransport';
 
 const http = new HTTPTransport();
 
-interface ISigninData {
+export interface ISigninData {
   login: String;
   password: String;
 }
 
-interface ISignupData {
+export interface ISignupData {
   first_name: String;
   second_name: String;
   login: String;

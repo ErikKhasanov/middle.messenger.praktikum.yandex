@@ -13,24 +13,31 @@ type IData = {
 
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 
+interface IRequest {
+  url: string;
+  method: METHOD;
+  data?: IData | null;
+  isFile?: boolean;
+}
+
 class HTTPTransport {
   get(url: string): Promise<XMLHttpRequest> {
-    return this.request(url, METHOD.GET);
+    return this.request({ url, method: METHOD.GET });
   }
 
   post(url: string, data?: IData): Promise<XMLHttpRequest> {
-    return this.request(url, METHOD.POST, data);
+    return this.request({ url, method: METHOD.POST, data });
   }
 
   delete(url: string, data: IData): Promise<XMLHttpRequest> {
-    return this.request(url, METHOD.DELETE, data);
+    return this.request({ url, method: METHOD.DELETE, data });
   }
 
   put(url: string, data: IData, isFile = false): Promise<XMLHttpRequest> {
-    return this.request(url, METHOD.PUT, data, isFile);
+    return this.request({ url, method: METHOD.PUT, data, isFile });
   }
 
-  request(url: string, method: METHOD, data?: IData, isFile: boolean): Promise<XMLHttpRequest> {
+  request({ url, method, data = null, isFile }: IRequest): Promise<XMLHttpRequest> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, `${BASE_URL}${url}`);
