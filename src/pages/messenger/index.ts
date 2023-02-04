@@ -51,7 +51,7 @@ class ChatsPage extends Block {
             <div class="chats-wrapper_list">
               {{#each store.state.chats}}
                 {{#with this}}
-                  {{{ChatComponent name=title lastMessage=lastMessage avatar=avatar id=id onClick=@root.onClickChat}}}
+                  {{{ChatComponent name=title lastMessage=last_message avatar=avatar id=id onClick=@root.onClickChat}}}
                 {{/with}}
               {{/each}}
             </div>

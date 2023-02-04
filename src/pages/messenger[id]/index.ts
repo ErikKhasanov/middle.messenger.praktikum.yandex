@@ -34,6 +34,9 @@ class ChatPage extends Block {
       onRemoveUser: (id: string) => {
         this.props.store.dispatch(MessengerController.deleteUserFromChat, { users: [id], chatId: this.props.params.id });
       },
+      removeChat: () => {
+        this.props.store.dispatch(MessengerController.deleteChatById, this.props.params.id);
+      },
     };
   }
   render() {
@@ -42,6 +45,7 @@ class ChatPage extends Block {
       <div class="layout">
       <div class="sidebar">
           <div class="profile-link">
+            {{{Link label="Назад к списку чатов" route="/messenger"}}}
             {{{Link label="Профиль" route="/profile"}}}
           </div>
           <div class="chats-wrapper">
@@ -51,7 +55,10 @@ class ChatPage extends Block {
             {{/with}}
           {{/each}}
           </div>
-          <div class="chats-add">{{{Button label="Добавить пользователя" onClick=addUser}}}</div>
+          <div class="chats-controls">
+            <div>{{{Button label="Добавить пользователя" onClick=addUser}}}</div>
+            <div>{{{Button label="Удалить чат" onClick=removeChat}}}</div>
+          </div>
         </div>
         <div class="layout_chat">
           {{#each store.state.messages}}
@@ -59,6 +66,7 @@ class ChatPage extends Block {
               <div class="message">
                 <div class="message_user">
                   {{this.user_id}}
+                  {{this.time}}
                 </div>
                 <div class="message_content">
                   {{this.content}}

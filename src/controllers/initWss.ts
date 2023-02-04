@@ -6,6 +6,12 @@ export const initWss = (dispatch: Dispatch<AppState>, messages = [], userId, cha
 
     socket.addEventListener('open', () => {
       console.log('Соединение установлено');
+      socket.send(
+        JSON.stringify({
+          content: '0',
+          type: 'get old',
+        }),
+      );
     });
 
     socket.addEventListener('close', event => {
@@ -19,12 +25,22 @@ export const initWss = (dispatch: Dispatch<AppState>, messages = [], userId, cha
     });
 
     socket.addEventListener('message', event => {
-      console.log('Получены данные', event.data);
+      console.log('Получены данные', JSON.parse(event.data));
       const data = JSON.parse(event.data);
-      if (data.type === 'message') {
-        console.log(messages, data);
-
+      if (data) {
         const newMessages = messages;
+        if (Array.isArray(data)) {
+          data.forEach(item => {
+            newMessages.push(item);
+          });
+          dispatch({
+            messages: newMessages.sort((a, b) => {
+              return new Date(a.time) - new Date(b.time);
+            }),
+          });
+          return;
+        }
+        if (data.type !== 'message') return;
         newMessages.push(data);
         dispatch({ messages: newMessages });
       }

@@ -35,6 +35,9 @@ const MessengerApi = {
   getWsToken: (id: string) => {
     return http.post(`/chats/token/${id}`);
   },
+  deleteChatByID: (id: string) => {
+    return http.delete('/chats', { chatId: id });
+  },
 };
 
 export default MessengerApi;

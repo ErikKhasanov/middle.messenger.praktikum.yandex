@@ -1,4 +1,5 @@
 import { Dispatch } from 'core/Store';
+import { PathRouter } from 'router/pathRouter';
 import MessengerApi, { ICreateChat, IDeleteUserFromChat, IAddUserChat } from 'api/MessengerApi';
 
 import { initWss } from './initWss';
@@ -124,6 +125,27 @@ const initWssDispatch: DispatchStateHandler<string> = async (dispatch, state, ac
     });
 };
 
+const deleteChatByIdDispatch: DispatchStateHandler<string> = async (dispatch, state, action) => {
+  dispatch({ isLoading: true });
+  MessengerApi.deleteChatByID(action)
+    .then(res => {
+      if (res.status === 200) {
+        PathRouter.go('/messenger');
+        return;
+      }
+      if (res.status >= 400) {
+        throw new Error(res.response);
+      }
+    })
+    .catch(error => {
+      alert('Произошла ошибка, попопробуйте позднее');
+      console.error(error);
+    })
+    .finally(() => {
+      dispatch({ isLoading: true });
+    });
+};
+
 export default {
   getChats: getChatsDispath,
   createChat: createChatDispatch,
@@ -131,4 +153,5 @@ export default {
   deleteUserFromChat: deleteUserFromChat,
   addUserToChat: addUserToChatDispatch,
   initWss: initWssDispatch,
+  deleteChatById: deleteChatByIdDispatch,
 };
