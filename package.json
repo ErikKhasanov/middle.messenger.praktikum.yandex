@@ -21,7 +21,8 @@
     "router": "./src/router",
     "api": "./src/api",
     "controllers": "./src/controllers",
-    "HOC": "./src/HOC"
+    "HOC": "./src/HOC",
+    "configs": "./src/configs"
   },
   "dependencies": {
     "express": "4.18.2"

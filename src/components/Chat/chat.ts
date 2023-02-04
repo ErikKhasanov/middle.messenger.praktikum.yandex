@@ -2,6 +2,7 @@ import { Block } from 'core';
 
 import './chat.css';
 
+import { DEFAULT_AVATAR } from 'configs/config';
 interface IChatComponent {
   avatar: string;
   name: string;
@@ -11,8 +12,6 @@ interface IChatComponent {
   onClick: (id: string) => void;
 }
 
-const DEFAULT_AVATAR = 'https://via.placeholder.com/100';
-
 export class ChatComponent extends Block {
   static componentName = 'ChatComponent';
 
@@ -21,25 +20,19 @@ export class ChatComponent extends Block {
   }
 
   render() {
+    const { avatar, lastMessage } = this.props;
+    const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : DEFAULT_AVATAR;
+    const lastMessageText = lastMessage ? lastMessage.content : 'Здесь ещё пусто';
+
     return `
     <div class="chat">
         <div class="avatar">
-            {{#if avatar}}
-              <img src={{avatar}} alt="" />
-            {{/if}}
-            {{#unless avatar}}
-              <img src=${DEFAULT_AVATAR} alt="" />
-            {{/unless}}
+          <img src="${avatarUrl}" alt="" />
         </div>
         <div class="description">
             <h4>{{name}}</h4>
             <p>
-              {{#if lastMessage}}
-                {{lastMessage}}
-              {{/if}}
-              {{#unless lastMessage}}
-                Здесь ещё пусто...
-              {{/unless}}
+              ${lastMessageText}
             </p>
         </div>
     </div>

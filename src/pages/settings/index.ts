@@ -6,6 +6,8 @@ import { withStore } from 'HOC/withStore';
 
 import UsersController from 'controllers/UsersController';
 
+import { DEFAULT_AVATAR } from 'configs/config';
+
 interface IForm {
   values: {
     email: string;
@@ -153,6 +155,7 @@ class SettingsPage extends Block {
   render() {
     const { values, errors } = this.state;
     const { avatar } = this.props.store.state.user;
+    const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : DEFAULT_AVATAR;
 
     return `
     <div class="profile">
@@ -162,7 +165,7 @@ class SettingsPage extends Block {
       <div class="profile_wrapper">
         <div class="profile-inner">
           <div class="profile-avatar">
-              <img src="https://ya-praktikum.tech/api/v2/${avatar}" alt="" />
+              <img src="${avatarUrl}" alt="" />
             Аватар
           </div>
           {{{FileForm label="Изменить аватар" id="avatar" name="avatar" onSubmit=onChangeAvatar}}}

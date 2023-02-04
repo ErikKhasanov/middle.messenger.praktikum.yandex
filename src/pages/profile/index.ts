@@ -4,6 +4,8 @@ import UserController from 'controllers/UserController';
 
 import { withStore } from 'HOC/withStore';
 
+import { DEFAULT_AVATAR } from 'configs/config';
+
 class ProfilePage extends Block {
   protected getStateFromProps(_props: any): void {
     this.state = {
@@ -15,6 +17,7 @@ class ProfilePage extends Block {
 
   render() {
     const { login, email, phone, first_name, second_name, display_name, avatar } = this.props.store.state.user;
+    const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : DEFAULT_AVATAR;
     return `
     <main>
     <div class="profile">
@@ -24,12 +27,7 @@ class ProfilePage extends Block {
     <div class="profile_wrapper">
       <div class="profile_inner">
         <div class="profile-avatar">
-          {{#if avatar}}
-            <img src="./assets/avatar.svg" alt="" />
-          {{/if}}
-          {{#unless avatar}}
-            <img src="https://via.placeholder.com/100" alt="" />
-          {{/unless}}
+          <img src="${avatarUrl}" alt="" />
           Аватар
         </div>
         {{{ProfileSetting label="Почта" value="${email}"}}}

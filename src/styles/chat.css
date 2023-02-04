@@ -27,9 +27,13 @@
   cursor: pointer;
 }
 
-.chats-add {
+.chats-controls {
   margin-bottom: 0;
   margin-top: auto;
+}
+
+.chats-controls > div:not(:last-child) {
+  margin-bottom: 8px;
 }
 
 .layout_chat {

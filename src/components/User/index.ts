@@ -31,7 +31,7 @@ class User extends Block {
 
   render(): string {
     const { avatar, displayName, firstName, secondName } = this.props;
-    const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2${avatar}` : DEFAULT_AVATAR;
+    const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : DEFAULT_AVATAR;
     const name = displayName || `${firstName} ${secondName}`;
     return `
     <div class="user-card">
