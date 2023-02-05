@@ -6,7 +6,7 @@ import { withStore } from 'HOC/withStore';
 
 import UsersController from 'controllers/UsersController';
 
-import { DEFAULT_AVATAR } from 'components/configs/config';
+import { DEFAULT_AVATAR } from 'configs/config';
 
 interface IForm {
   values: {

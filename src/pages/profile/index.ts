@@ -4,7 +4,7 @@ import UserController from 'controllers/UserController';
 
 import { withStore } from 'HOC/withStore';
 
-import { DEFAULT_AVATAR } from 'components/configs/config';
+import { DEFAULT_AVATAR } from 'configs/config';
 
 class ProfilePage extends Block {
   protected getStateFromProps(_props: any): void {

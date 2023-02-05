@@ -2,7 +2,7 @@ import { Block } from 'core';
 
 import './chat.css';
 
-import { DEFAULT_AVATAR } from 'components/configs/config';
+import { DEFAULT_AVATAR } from 'configs/config';
 interface IChatComponent {
   avatar: string;
   name: string;
