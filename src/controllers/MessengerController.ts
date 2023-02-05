@@ -110,7 +110,7 @@ const initWssDispatch: DispatchStateHandler<string> = async (dispatch, state, ac
     .then(res => {
       if (res.status === 200) {
         const token = JSON.parse(res.response).token;
-        initWss(dispatch, state.messages, state.user.id, action, token);
+        initWss(dispatch, state.user.id, action, token);
       }
       if (res.status >= 400) {
         throw new Error(res.response);

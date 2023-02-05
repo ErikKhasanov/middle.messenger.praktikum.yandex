@@ -134,19 +134,21 @@ class SigninPage extends Block {
     const { errors, values } = this.state;
 
     return `
+    {{#Layout isLoading=store.state.isLoading}}
       <main>
-      <div class="registration-form">
-      <h2>Вход</h2>
-      <form name="loginForm">
-        {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
-        {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
-        {{{Button label="Авторизоваться" onClick=onLogin}}}
-      </form>
-      <div class="registration-link">
-        {{{Link label="Нет аккаунта?" route="/sign-up"}}}
-      </div>
-    </div>
+        <div class="registration-form">
+        <h2>Вход</h2>
+        <form name="loginForm">
+          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
+          {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
+          {{{Button label="Авторизоваться" onClick=onLogin}}}
+        </form>
+        <div class="registration-link">
+          {{{Link label="Нет аккаунта?" route="/sign-up"}}}
+        </div>
+        </div>
       </main>
+    {{/Layout}}
       `;
   }
 }

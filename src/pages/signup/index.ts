@@ -119,23 +119,25 @@ class SignupPage extends Block {
   render() {
     const { values, errors } = this.state;
     return `
-    <main>
-      <div class="registration-form">
-        <h2>Регистрация</h2>
-        <form name="registration" class="form">
-          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}" errorText="${errors.login}" }}}
-          {{{InputControll placeHolder="Введите электронную почту" onInput=onInput onBlur=onBlur onFocus=onFocus id="email" name="email" ref="emailRef" label="Электронная почта" type="text" inputValue="${values.email}" errorText="${errors.email}" }}}
-          {{{InputControll placeHolder="Введите номер телефона" onInput=onInput onBlur=onBlur onFocus=onFocus id="phone" name="phone" ref="phoneRef" label="Телефон" type="text" inputValue="${values.phone}" errorText="${errors.phone}" }}}
-          {{{InputControll placeHolder="Введите ваше имя" onInput=onInput onBlur=onBlur onFocus=onFocus id="firstName" name="first_name" ref="firsNameRef" label="Имя" type="text" inputValue="${values.first_name}" errorText="${errors.first_name}" }}}
-          {{{InputControll placeHolder="Введите вашу фамилию" onInput=onInput onBlur=onBlur onFocus=onFocus id="secondName" name="second_name" ref="secondNameRef" label="Фамилия" type="text" inputValue="${values.second_name}" errorText="${errors.second_name}" }}}
-          {{{InputControll placeHolder="Введите пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" name="password" ref="passwordRef" label="Пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
-          {{{Button label="Зарегистрироваться" onClick=onRegistration}}}
-        </form>
-        <div class="registration-link">
-          {{{Link label="Войти" route="/signin"}}}
+    {{#Layout isLoading=store.state.isLoading}}
+      <main>
+        <div class="registration-form">
+          <h2>Регистрация</h2>
+          <form name="registration" class="form">
+            {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}" errorText="${errors.login}" }}}
+            {{{InputControll placeHolder="Введите электронную почту" onInput=onInput onBlur=onBlur onFocus=onFocus id="email" name="email" ref="emailRef" label="Электронная почта" type="text" inputValue="${values.email}" errorText="${errors.email}" }}}
+            {{{InputControll placeHolder="Введите номер телефона" onInput=onInput onBlur=onBlur onFocus=onFocus id="phone" name="phone" ref="phoneRef" label="Телефон" type="text" inputValue="${values.phone}" errorText="${errors.phone}" }}}
+            {{{InputControll placeHolder="Введите ваше имя" onInput=onInput onBlur=onBlur onFocus=onFocus id="firstName" name="first_name" ref="firsNameRef" label="Имя" type="text" inputValue="${values.first_name}" errorText="${errors.first_name}" }}}
+            {{{InputControll placeHolder="Введите вашу фамилию" onInput=onInput onBlur=onBlur onFocus=onFocus id="secondName" name="second_name" ref="secondNameRef" label="Фамилия" type="text" inputValue="${values.second_name}" errorText="${errors.second_name}" }}}
+            {{{InputControll placeHolder="Введите пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" name="password" ref="passwordRef" label="Пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
+            {{{Button label="Зарегистрироваться" onClick=onRegistration}}}
+          </form>
+          <div class="registration-link">
+            {{{Link label="Войти" route="/signin"}}}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    {{/Layout}}
         `;
   }
 }
