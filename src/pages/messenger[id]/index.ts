@@ -7,6 +7,7 @@ import MessengerController from 'controllers/MessengerController';
 
 class ChatPage extends Block {
   componentDidMount(_props: any): void {
+    // this.props.store.dispatch({ socket: null, messages: null });
     this.props.store.dispatch(MessengerController.getChatUsers, this.props.params.id);
     this.props.store.dispatch(MessengerController.initWss, this.props.params.id);
   }
@@ -41,6 +42,7 @@ class ChatPage extends Block {
   }
   render() {
     return `
+    {{#Layout isLoading=store.state.isLoading}}
       <main>
       <div class="layout">
       <div class="sidebar">
@@ -61,6 +63,7 @@ class ChatPage extends Block {
           </div>
         </div>
         <div class="layout_chat">
+          <div class="messages_list">
           {{#each store.state.messages}}
             {{#with this}}
               <div class="message">
@@ -74,6 +77,7 @@ class ChatPage extends Block {
               </div>
             {{/with}}
           {{/each}}
+          </div>
           <div class="layout_chat_controls">
             {{{InputComponent id="message" ref="messageRef" name="message" label="Введите сообщение" placeHolder="Введите сообщение" onInput=onInput}}}
             {{{Button classname="send" label="Отправить" onClick=sendMessage}}}
@@ -81,6 +85,7 @@ class ChatPage extends Block {
         </div>
         </div>
       </main>
+    {{/Layout}}
       `;
   }
 }

@@ -6,7 +6,7 @@ import { withStore } from 'HOC/withStore';
 
 import UsersController from 'controllers/UsersController';
 
-import { DEFAULT_AVATAR } from 'configs/config';
+import { DEFAULT_AVATAR } from 'components/configs/config';
 
 interface IForm {
   values: {
@@ -158,33 +158,35 @@ class SettingsPage extends Block {
     const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : DEFAULT_AVATAR;
 
     return `
-    <div class="profile">
-      <div class="profile_bar">
-        {{{Link label="Назад" route="/profile"}}}
-      </div>
-      <div class="profile_wrapper">
-        <div class="profile-inner">
-          <div class="profile-avatar">
-              <img src="${avatarUrl}" alt="" />
-            Аватар
+      {{#Layout isLoading=store.state.isLoading}}
+        <div class="profile">
+        <div class="profile_bar">
+          {{{Link label="Назад" route="/profile"}}}
+        </div>
+        <div class="profile_wrapper">
+          <div class="profile-inner">
+            <div class="profile-avatar">
+                <img src="${avatarUrl}" alt="" />
+              Аватар
+            </div>
+            {{{FileForm label="Изменить аватар" id="avatar" name="avatar" onSubmit=onChangeAvatar}}}
           </div>
-          {{{FileForm label="Изменить аватар" id="avatar" name="avatar" onSubmit=onChangeAvatar}}}
+          <div class="profile_inner">
+            <form name="settings" id="form">
+              {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}" errorText="${errors.login}" }}}
+            {{{InputControll placeHolder="Введите отображаемое имя" onInput=onInput onBlur=onBlur onFocus=onFocus id="displayName" name="displayName" ref="displayNameRef" label="Отображаемое имя" type="text" inputValue="${values.display_name}" errorText="${errors.display_name}" }}}
+            {{{InputControll placeHolder="Введите электронную почту" onInput=onInput onBlur=onBlur onFocus=onFocus id="email" name="email" ref="emailRef" label="Электронная почта" type="text" inputValue="${values.email}" errorText="${errors.email}" }}}
+            {{{InputControll placeHolder="Введите номер телефона" onInput=onInput onBlur=onBlur onFocus=onFocus id="phone" ref="phoneRef" label="Телефон" type="text" inputValue="${values.phone}" errorText="${errors.phone}" }}}
+            {{{InputControll placeHolder="Введите ваше имя" onInput=onInput onBlur=onBlur onFocus=onFocus id="first_name" name="first_name" ref="firsNameRef" label="Имя" type="text" inputValue="${values.first_name}" errorText="${errors.first_name}" }}}
+            {{{InputControll placeHolder="Введите вашу фамилию" onInput=onInput onBlur=onBlur onFocus=onFocus id="second_name"  name="second_name" ref="secondNameRef" label="Фамилия" type="text" inputValue="${values.second_name}" errorText="${errors.second_name}" }}}
+            {{{Button label="Изменить данные" onClick=onChangeProfile}}}
+          </form>
         </div>
         <div class="profile_inner">
-          <form name="settings" id="form">
-            {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}" errorText="${errors.login}" }}}
-          {{{InputControll placeHolder="Введите отображаемое имя" onInput=onInput onBlur=onBlur onFocus=onFocus id="displayName" name="displayName" ref="displayNameRef" label="Отображаемое имя" type="text" inputValue="${values.display_name}" errorText="${errors.display_name}" }}}
-          {{{InputControll placeHolder="Введите электронную почту" onInput=onInput onBlur=onBlur onFocus=onFocus id="email" name="email" ref="emailRef" label="Электронная почта" type="text" inputValue="${values.email}" errorText="${errors.email}" }}}
-          {{{InputControll placeHolder="Введите номер телефона" onInput=onInput onBlur=onBlur onFocus=onFocus id="phone" ref="phoneRef" label="Телефон" type="text" inputValue="${values.phone}" errorText="${errors.phone}" }}}
-          {{{InputControll placeHolder="Введите ваше имя" onInput=onInput onBlur=onBlur onFocus=onFocus id="first_name" name="first_name" ref="firsNameRef" label="Имя" type="text" inputValue="${values.first_name}" errorText="${errors.first_name}" }}}
-          {{{InputControll placeHolder="Введите вашу фамилию" onInput=onInput onBlur=onBlur onFocus=onFocus id="second_name"  name="second_name" ref="secondNameRef" label="Фамилия" type="text" inputValue="${values.second_name}" errorText="${errors.second_name}" }}}
-          {{{Button label="Изменить данные" onClick=onChangeProfile}}}
-        </form>
-      </div>
-      <div class="profile_inner">
-        {{{Button label="Изменить пароль" onClick=onChangePassword}}}
-      </div>
-  </div>
+          {{{Button label="Изменить пароль" onClick=onChangePassword}}}
+        </div>
+        </div>
+      {{/Layout}}
         `;
   }
 }

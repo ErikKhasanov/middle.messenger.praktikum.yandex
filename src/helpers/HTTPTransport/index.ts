@@ -35,7 +35,7 @@ class HTTPTransport {
     return this.request({ url, method: METHOD.DELETE, data });
   };
 
-  put: IMethod = (url, data, _method, isFile = false) => {
+  put: IMethod = (url, data, isFile = false) => {
     return this.request({ url, method: METHOD.PUT, data, isFile });
   };
 
