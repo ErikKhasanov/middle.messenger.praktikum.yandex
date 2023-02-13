@@ -1,7 +1,7 @@
 import { concatValidators, VALIDATORS_MAP } from './validators';
 
 // TODO Сделать возможность проверки по одному параметру
-const REGISTRATION_VALIDATOR = ({ login, password, email, phone, firstName, secondName }: { [key: string]: string }) => ({
+const REGISTRATION_VALIDATOR = ({ login, password, email, phone, first_name, second_name }: { [key: string]: string }) => ({
   login: concatValidators([
     VALIDATORS_MAP.maxLength({
       value: login,
@@ -18,8 +18,8 @@ const REGISTRATION_VALIDATOR = ({ login, password, email, phone, firstName, seco
     }),
   ]),
   phone: concatValidators([VALIDATORS_MAP.phone({ value: phone })]),
-  firstName: concatValidators([VALIDATORS_MAP.firstName({ value: firstName })]),
-  secondName: concatValidators([VALIDATORS_MAP.secondName({ value: secondName })]),
+  first_name: concatValidators([VALIDATORS_MAP.first_name({ value: first_name })]),
+  second_name: concatValidators([VALIDATORS_MAP.second_name({ value: second_name })]),
   email: concatValidators([
     VALIDATORS_MAP.email({
       value: email,

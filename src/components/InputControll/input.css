@@ -21,7 +21,7 @@
   font-size: 10px;
 }
 
-.input-controlled .input-controlled_input:not([value=""]) + .placeholder-text {
+.input-controlled .input-controlled_input:not([value='']) + .placeholder-text {
   transform: translate(0, -90%);
   font-size: 12px;
 }

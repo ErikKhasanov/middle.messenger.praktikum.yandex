@@ -1,9 +1,12 @@
 import { Block } from 'core';
 
+import UserController from 'controllers/UserController';
+
 // Helpers
 import { VALIDATORS_MAP, concatValidators } from 'helpers/validator/validators';
 
 import './auth.css';
+import { withStore } from 'HOC/withStore';
 
 interface IAuthValidateForm {
   login: string;
@@ -64,7 +67,7 @@ const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
   ]),
 });
 
-class LoginPage extends Block {
+class SigninPage extends Block {
   getInputsValues(): IForm['values'] {
     return {
       login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
@@ -84,7 +87,6 @@ class LoginPage extends Block {
       ...INIT_STATE,
 
       onBlur: e => {
-        debugger;
         const field = e.target.id as keyof IForm['values'];
         // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
@@ -121,6 +123,8 @@ class LoginPage extends Block {
 
         if (errors.login || errors.password) return;
 
+        this.props.store.dispatch(UserController.signin, formData);
+
         console.log(formData);
       },
     };
@@ -128,23 +132,24 @@ class LoginPage extends Block {
 
   render() {
     const { errors, values } = this.state;
-    console.log(values);
 
     return `
+    {{#Layout isLoading=store.state.isLoading}}
       <main>
-      <div class="registration-form">
-      <h2>Вход</h2>
-      <form name="loginForm">
-        {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
-        {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
-        {{{Button label="Авторизоваться" onClick=onLogin}}}
-      </form>
-      <div class="registration-link">
-        <a href="/registration">Нет аккаунта?</a>
-      </div>
-    </div>
+        <div class="registration-form">
+        <h2>Вход</h2>
+        <form name="loginForm">
+          {{{InputControll placeHolder="Введите логин" onInput=onInput onBlur=onBlur onFocus=onFocus id="login" name="login" ref="loginRef" label="Логин" type="text" inputValue="${values.login}"  errorText="${errors.login}" }}}
+          {{{InputControll placeHolder="Пароль" onInput=onInput onBlur=onBlur onFocus=onFocus id="password" ref="passwordRef" label="Введите пароль" type="password" inputValue="${values.password}" errorText="${errors.password}" }}}
+          {{{Button label="Авторизоваться" onClick=onLogin}}}
+        </form>
+        <div class="registration-link">
+          {{{Link label="Нет аккаунта?" route="/sign-up"}}}
+        </div>
+        </div>
       </main>
+    {{/Layout}}
       `;
   }
 }
-export default LoginPage;
+export default withStore(SigninPage);
