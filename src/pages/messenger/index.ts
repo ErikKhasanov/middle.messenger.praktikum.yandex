@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import Block from 'core/Block';
+import { Block, AppStore, AppRouter } from 'core';
+
 import MessengerController from 'controllers/MessengerController';
-import { withStore } from 'HOC/withStore';
-import { PathRouter } from 'router/pathRouter';
+import connectStore from 'HOC/connectStore';
 
 const INIT_STATE = {
   values: {
@@ -13,12 +13,14 @@ const INIT_STATE = {
   },
 };
 
-class ChatsPage extends Block {
-  componentDidMount(_props: any): void {
-    this.props.store.dispatch(MessengerController.getChats);
-  }
+interface IChatsPageProps {
+  chats: Chat[];
+}
 
-  protected router = PathRouter.getInstance();
+class ChatsPage extends Block<IChatsPageProps> {
+  componentDidMount(_props: any): void {
+    AppStore.dispatch(MessengerController.getChats);
+  }
 
   protected getStateFromProps(): void {
     this.state = {
@@ -26,16 +28,17 @@ class ChatsPage extends Block {
 
       createChat: () => {
         const title = { title: prompt('Название чата', '') };
-        this.props.store.dispatch(MessengerController.createChat, title);
+        AppStore.dispatch(MessengerController.createChat, title);
       },
 
-      onClickChat: id => {
-        this.router.go(`/messenger/${id}`);
+      onClickChat: (id: string) => {
+        AppRouter.go(`/messenger/${id}`);
       },
     };
   }
 
   render() {
+    const { chats } = this.props;
     return `
     {{#Layout isLoading=store.state.isLoading}}
       <main>
@@ -49,7 +52,7 @@ class ChatsPage extends Block {
         </div>
         <div class="chats-wrapper">
             <div class="chats-wrapper_list">
-              {{#each store.state.chats}}
+              {{#each chats}}
                 {{#with this}}
                   {{{ChatComponent name=title lastMessage=last_message avatar=avatar id=id onClick=@root.onClickChat}}}
                 {{/with}}
@@ -64,4 +67,7 @@ class ChatsPage extends Block {
   }
 }
 
-export default withStore(ChatsPage);
+const mapStateToProps = (state: AppState) => ({
+  chats: state.chats,
+});
+export default connectStore(mapStateToProps)(ChatsPage);

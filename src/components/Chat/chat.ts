@@ -3,19 +3,21 @@ import { Block } from 'core';
 import './chat.css';
 
 import { DEFAULT_AVATAR } from 'configs/config';
-interface IChatComponent {
+interface IChatComponentProps {
   avatar: string;
   name: string;
-  lastMessage: string;
+  lastMessage: { content: string };
   id: string;
   // eslint-disable-next-line no-unused-vars
   onClick: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  events: { [key: string]: (id: string) => void };
 }
 
-export class ChatComponent extends Block {
+export class ChatComponent extends Block<Omit<IChatComponentProps, 'onClick'>> {
   static componentName = 'ChatComponent';
 
-  constructor({ avatar, name, lastMessage, id, onClick }: IChatComponent) {
+  constructor({ avatar, name, lastMessage, id, onClick }: Omit<IChatComponentProps, 'events'>) {
     super({ avatar, name, lastMessage, id, events: { click: () => onClick(id) } });
   }
 

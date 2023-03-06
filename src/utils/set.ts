@@ -5,7 +5,7 @@ type Indexed<T = unknown> = {
   [key in string]: T;
 };
 
-function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+function set(object: Indexed | unknown, path: any, value: unknown): Indexed | unknown {
   if (typeof path === 'string') {
     throw new Error('path must be string');
   }

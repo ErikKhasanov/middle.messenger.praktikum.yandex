@@ -1,10 +1,14 @@
 import Block from 'core/Block';
 import './layout.css';
 
-class Layout extends Block {
+interface ILayoutProps {
+  isLoading: boolean;
+}
+
+class Layout extends Block<ILayoutProps> {
   static componentName = 'Layout';
 
-  constructor(props) {
+  constructor(props: ILayoutProps) {
     super(props);
   }
 

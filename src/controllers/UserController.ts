@@ -1,8 +1,8 @@
 import UserApi, { ISigninData, ISignupData } from 'api/UserApi';
-import { PathRouter } from 'router/pathRouter';
+import AppRouter from 'core/Router';
 
-const signInDispatch: DispatchStateHandler<ISigninData> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const signInDispatch: DispatchStateHandler<ISigninData> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   UserApi.signin(action)
     .then(res => {
       if (res.status === 400) {
@@ -12,7 +12,7 @@ const signInDispatch: DispatchStateHandler<ISigninData> = async (dispatch, _stat
       if (res.status === 200) {
         UserApi.getUser().then(res => {
           dispatch({ user: JSON.parse(res.response) });
-          PathRouter.go('/chats');
+          AppRouter.go('/messenger');
         });
         return;
       }
@@ -29,17 +29,17 @@ const signInDispatch: DispatchStateHandler<ISigninData> = async (dispatch, _stat
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
-const signUpDispatch: DispatchStateHandler<ISignupData> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const signUpDispatch: DispatchStateHandler<ISignupData> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   UserApi.signup(action)
     .then(res => {
       if (res.status === 200) {
         dispatch({ user: JSON.parse(res.response) });
-        PathRouter.go('/chats');
+        AppRouter.go('/chats');
         return;
       }
       if (res.status >= 400) {
@@ -55,7 +55,7 @@ const signUpDispatch: DispatchStateHandler<ISignupData> = async (dispatch, _stat
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 

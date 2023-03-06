@@ -1,31 +1,34 @@
 /* eslint-disable no-unused-vars */
-import { Block } from 'core';
-
-import { withStore } from 'HOC/withStore';
-
+import { Block, AppStore } from 'core';
+import connectStore from 'HOC/connectStore';
 import MessengerController from 'controllers/MessengerController';
 
-class ChatPage extends Block {
+interface IChatsPageByIdProps {
+  currentChat: AppState['currentChat'];
+  socket: AppState['socket'];
+  params: { id: string };
+}
+
+class ChatPageById extends Block<IChatsPageByIdProps> {
   componentDidMount(_props: any): void {
-    // this.props.store.dispatch({ socket: null, messages: null });
-    this.props.store.dispatch(MessengerController.getChatUsers, this.props.params.id);
-    this.props.store.dispatch(MessengerController.initWss, this.props.params.id);
+    AppStore.dispatch(MessengerController.getChatUsers, this.props.params.id);
+    AppStore.dispatch(MessengerController.initWss, this.props.params.id);
   }
 
   protected getStateFromProps(_props: any): void {
     this.state = {
       addUser: () => {
         const userId = prompt('Введите айди пользователя');
-        this.props.store.dispatch(MessengerController.addUserToChat, { users: [userId], chatId: this.props.params.id });
+        AppStore.dispatch(MessengerController.addUserToChat, { users: [userId], chatId: this.props.params.id });
       },
-      onInput: e => {
+      onInput: (e: InputTarget) => {
         const { value } = e.target;
-        this.refs.messageRef.setAttribute('value', value);
+        this.refs.messageRef.node.setAttribute('value', value);
       },
       sendMessage: () => {
-        const message = (this.refs.messageRef as HTMLInputElement).value;
-        (this.refs.messageRef as HTMLInputElement).value = '';
-        this.props.store.state.socket.send(
+        const message = this.refs.messageRef.node.value;
+        this.refs.messageRef.value = '';
+        this.props.socket.send(
           JSON.stringify({
             content: message,
             type: 'message',
@@ -33,14 +36,16 @@ class ChatPage extends Block {
         );
       },
       onRemoveUser: (id: string) => {
-        this.props.store.dispatch(MessengerController.deleteUserFromChat, { users: [id], chatId: this.props.params.id });
+        AppStore.dispatch(MessengerController.deleteUserFromChat, { users: [id], chatId: this.props.params.id });
       },
       removeChat: () => {
-        this.props.store.dispatch(MessengerController.deleteChatById, this.props.params.id);
+        AppStore.dispatch(MessengerController.deleteChatById, this.props.params.id);
       },
     };
   }
   render() {
+    const { usersInChat } = this.props.currentChat;
+    const { messsages } = this.props;
     return `
     {{#Layout isLoading=store.state.isLoading}}
       <main>
@@ -51,7 +56,11 @@ class ChatPage extends Block {
             {{{Link label="Профиль" route="/profile"}}}
           </div>
           <div class="chats-wrapper">
-          {{#each store.state.usersInChat}}
+          ${usersInChat?.map(
+            item =>
+              `{{{User displayName="${item.display_name}" firstName="${item.first_name}" secondName="${item.second_name}" avatar="${item.avatar}" id="${item.id}" onRemove=onRemoveUser }}}`,
+          )}
+          {{#each usersInChat}}
           {{#with this}}
               {{{User displayName=display_name firstName=first_name secondName=second_name avatar=avatar id=id onRemove=@root.onRemoveUser }}}
             {{/with}}
@@ -64,7 +73,7 @@ class ChatPage extends Block {
         </div>
         <div class="layout_chat">
           <div class="messages_list">
-          {{#each store.state.messages}}
+          {{#each messages}}
             {{#with this}}
               <div class="message">
                 <div class="message_user">
@@ -89,4 +98,9 @@ class ChatPage extends Block {
       `;
   }
 }
-export default withStore(ChatPage);
+const mapStateToProps = (state: AppState) => ({
+  currentChat: state.currentChat || {},
+  socket: state.socket,
+  messages: state.messages,
+});
+export default connectStore(mapStateToProps)<IChatsPageByIdProps>(ChatPageById);

@@ -3,7 +3,7 @@ type Indexed<T = unknown> = {
   [key in string]: T;
 };
 
-function merge(lhs: Indexed, rhs: Indexed): Indexed {
+function merge(lhs: Indexed, rhs: any): Indexed {
   for (let p in rhs) {
     if (!Object.prototype.hasOwnProperty.call(rhs, p)) {
       continue;

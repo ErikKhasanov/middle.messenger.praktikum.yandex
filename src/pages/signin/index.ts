@@ -1,4 +1,4 @@
-import { Block } from 'core';
+import { Block, AppStore } from 'core';
 
 import UserController from 'controllers/UserController';
 
@@ -6,7 +6,6 @@ import UserController from 'controllers/UserController';
 import { VALIDATORS_MAP, concatValidators } from 'helpers/validator/validators';
 
 import './auth.css';
-import { withStore } from 'HOC/withStore';
 
 interface IAuthValidateForm {
   login: string;
@@ -70,8 +69,8 @@ const VALIDATE_FORM = ({ login, password }: IAuthValidateForm) => ({
 class SigninPage extends Block {
   getInputsValues(): IForm['values'] {
     return {
-      login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
-      password: (this.refs.passwordRef.lastElementChild as HTMLInputElement).value,
+      login: (this.refs.loginRef.node.lastElementChild as HTMLInputElement).value,
+      password: (this.refs.passwordRef.node.lastElementChild as HTMLInputElement).value,
     };
   }
 
@@ -82,11 +81,13 @@ class SigninPage extends Block {
     });
   }
 
+  elements: FormElements = document.forms;
+
   protected getStateFromProps(): void {
     this.state = {
       ...INIT_STATE,
 
-      onBlur: e => {
+      onBlur: (e: InputTarget) => {
         const field = e.target.id as keyof IForm['values'];
         // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
@@ -98,33 +99,31 @@ class SigninPage extends Block {
         this.setState(nextState);
       },
 
-      onFocus: e => {
-        const field = e.target.id as keyof IForm['values'];
+      onFocus: (e: InputTarget) => {
+        const field = e.target.id;
         if (!this.state.errors[field]) return;
-        const label = document.forms.loginForm.elements[field].labels[0];
+        const label = this.elements?.loginForm?.elements[field].labels[0];
         label.removeChild(label.lastElementChild);
       },
 
-      onInput: e => {
-        const field = e.target.id as keyof IForm['values'];
+      onInput: (e: InputTarget) => {
+        const field = e.target.id;
         const { value } = e.target;
-        document.forms.loginForm.elements[field].setAttribute('value', value);
+        this.elements.loginForm.elements[field].setAttribute('value', value);
       },
 
-      onLogin: () => {
+      onLogin: (e: InputTarget) => {
+        e.preventDefault();
         const formData = this.getInputsValues();
+        console.log('formData', formData);
         const errors = this.validateForm(formData);
         const nextState = {
           errors: { ...errors },
           values: { ...formData },
         };
-
         this.setState(nextState);
-
         if (errors.login || errors.password) return;
-
-        this.props.store.dispatch(UserController.signin, formData);
-
+        AppStore.dispatch(UserController.signin, formData);
         console.log(formData);
       },
     };
@@ -152,4 +151,4 @@ class SigninPage extends Block {
       `;
   }
 }
-export default withStore(SigninPage);
+export default SigninPage;
