@@ -5,3 +5,9 @@
 - Запуск сборки проекта `yarn build`
 - Запуск сервера `yarn start`
 - Запуск в режиме разработки `yarn dev`
+- Запуск тестов `yarn test`
+
+## Docker
+- Сборка контейнера `docker build -t messenger .`
+- Запуск контейнера `docker run -p 3000:3000 -d messenger`
+- Остановка контейнера `docker stop CONTAINER_NAME`

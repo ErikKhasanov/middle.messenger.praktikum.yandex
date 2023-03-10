@@ -2,16 +2,17 @@ import Block from 'core/Block';
 
 import './button.css';
 
-interface IButton {
+interface IButtonProps {
   classname: string;
   label: string;
+  events: { [key: string]: () => void };
   onClick: () => void;
 }
 
-export class Button extends Block {
+export class Button extends Block<Omit<IButtonProps, 'onClick'>> {
   static componentName = 'Button';
 
-  constructor({ classname, label, onClick }: IButton) {
+  constructor({ classname, label, onClick }: Omit<IButtonProps, 'events'>) {
     super({ classname, label, events: { click: onClick } });
   }
 

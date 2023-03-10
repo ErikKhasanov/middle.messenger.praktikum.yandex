@@ -7,20 +7,16 @@ enum METHOD {
   DELETE = 'DELETE',
 }
 
-type IData = {
-  [key: string]: any;
-};
-
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 
 interface IRequest {
   url: string;
   method: METHOD;
-  data?: IData | null;
+  data?: any;
   isFile?: boolean;
 }
 
-type IMethod = (url: string, method?: METHOD, data?: IData) => Promise<XMLHttpRequest>;
+type IMethod = (url: string, data?: IRequest['data'], isFile?: boolean, method?: METHOD) => Promise<XMLHttpRequest>;
 
 class HTTPTransport {
   get: IMethod = url => {
@@ -39,14 +35,15 @@ class HTTPTransport {
     return this.request({ url, method: METHOD.PUT, data, isFile });
   };
 
-  request({ url, method, data = null, isFile }: IRequest): Promise<XMLHttpRequest> {
+  request({ url, method, data, isFile }: IRequest): Promise<XMLHttpRequest> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+      const reqData = typeof data !== 'undefined' ? data : null;
       xhr.open(method, `${BASE_URL}${url}`);
 
       xhr.withCredentials = true;
 
-      if (data && !isFile) {
+      if (reqData && !isFile) {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
 
@@ -58,14 +55,14 @@ class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHOD.GET || !data) {
+      if (method === METHOD.GET || !reqData) {
         xhr.send();
       } else {
         if (isFile) {
-          xhr.send(data);
+          xhr.send(reqData);
           return;
         }
-        xhr.send(JSON.stringify(data));
+        xhr.send(JSON.stringify(reqData));
       }
     });
   }

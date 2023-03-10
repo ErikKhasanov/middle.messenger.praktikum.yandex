@@ -1,9 +1,9 @@
-import { Dispatch } from 'core/Store';
-
-export const initWss = (dispatch: Dispatch<AppState>, userId, chatId, token) => {
+export const initWss = (dispatch: Dispatch<AppState>, userId: string, chatId: string, token: string) => {
   try {
     const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
-    let prevMessages;
+    dispatch({ socket: socket });
+
+    let prevMessages: IMessage[] = [];
 
     socket.addEventListener('open', () => {
       console.log('Соединение установлено');
@@ -28,23 +28,21 @@ export const initWss = (dispatch: Dispatch<AppState>, userId, chatId, token) => 
     socket.addEventListener('message', event => {
       console.log('Получены данные', event.data);
       const data = JSON.parse(event.data);
-      let newMessages = [];
+      let newMessages: IMessage[] = [];
 
       if (Array.isArray(data)) {
         // Если история пустая
         if (data.length === 0) {
-          dispatch({ messages: [] });
+          dispatch({ messages: undefined });
           return;
         }
         data.forEach(item => {
           newMessages.push(item);
         });
         newMessages = newMessages.sort((a, b) => {
-          return new Date(a.time) - new Date(b.time);
+          return +new Date(Number(a.time)) - +new Date(Number(b.time));
         });
-        dispatch({
-          messages: newMessages,
-        });
+        dispatch({ messages: newMessages });
         prevMessages = newMessages;
         return;
       }
@@ -53,11 +51,9 @@ export const initWss = (dispatch: Dispatch<AppState>, userId, chatId, token) => 
       dispatch({ messages: newMessages });
     });
 
-    socket.addEventListener('error', event => {
+    socket.addEventListener('error', (event: any) => {
       console.log('Ошибка', event.message);
     });
-
-    dispatch({ socket: socket });
   } catch (error) {
     alert('Произошла ошибка попробуйте позднее');
     console.error(error);

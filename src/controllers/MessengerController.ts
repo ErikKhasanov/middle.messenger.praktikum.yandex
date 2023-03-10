@@ -1,11 +1,10 @@
-import { Dispatch } from 'core/Store';
-import { PathRouter } from 'router/pathRouter';
+import { AppRouter } from 'core';
 import MessengerApi, { ICreateChat, IDeleteUserFromChat, IAddUserChat } from 'api/MessengerApi';
 
 import { initWss } from './initWss';
 
-const getChatsDispath = (dispatch: Dispatch<AppState>) => {
-  dispatch({ isLoading: true });
+const getChatsDispath = (dispatch: Dispatch<AppState>, state: AppState) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.getChats()
     .then(res => {
       if (res.status === 200) {
@@ -20,16 +19,16 @@ const getChatsDispath = (dispatch: Dispatch<AppState>) => {
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
-const createChatDispatch: DispatchStateHandler<ICreateChat> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const createChatDispatch: DispatchStateHandler<ICreateChat> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.createChat(action)
     .then(res => {
       if (res.status === 200) {
-        getChatsDispath(dispatch);
+        getChatsDispath(dispatch, state);
       }
       if (res.status >= 400) {
         throw new Error(res.response);
@@ -40,16 +39,17 @@ const createChatDispatch: DispatchStateHandler<ICreateChat> = async (dispatch, _
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
-const getChatsUsersDispatch: DispatchStateHandler<string> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const getChatsUsersDispatch: DispatchStateHandler<string> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.getChatUsers(action)
     .then(res => {
       if (res.status === 200) {
-        dispatch({ usersInChat: JSON.parse(res.response) });
+        const newCurrentChat = { ...state.currentChat, usersInChat: JSON.parse(res.response) };
+        dispatch({ currentChat: newCurrentChat });
       }
       if (res.status >= 400) {
         throw new Error(res.response);
@@ -60,12 +60,12 @@ const getChatsUsersDispatch: DispatchStateHandler<string> = async (dispatch, _st
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
-const deleteUserFromChat: DispatchStateHandler<IDeleteUserFromChat> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const deleteUserFromChat: DispatchStateHandler<IDeleteUserFromChat> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.deleteUserFromChat(action)
     .then(res => {
       if (res.status === 200) {
@@ -80,12 +80,12 @@ const deleteUserFromChat: DispatchStateHandler<IDeleteUserFromChat> = async (dis
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
-const addUserToChatDispatch: DispatchStateHandler<IAddUserChat> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const addUserToChatDispatch: DispatchStateHandler<IAddUserChat> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.addUserToChat(action)
     .then(res => {
       if (res.status === 200) {
@@ -100,17 +100,17 @@ const addUserToChatDispatch: DispatchStateHandler<IAddUserChat> = async (dispatc
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
 const initWssDispatch: DispatchStateHandler<string> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true });
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.getWsToken(action)
     .then(res => {
       if (res.status === 200) {
         const token = JSON.parse(res.response).token;
-        initWss(dispatch, state.user.id, action, token);
+        initWss(dispatch, state.user.id, action, token, state);
       }
       if (res.status >= 400) {
         throw new Error(res.response);
@@ -121,16 +121,16 @@ const initWssDispatch: DispatchStateHandler<string> = async (dispatch, state, ac
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
 const deleteChatByIdDispatch: DispatchStateHandler<string> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true });
+  dispatch({ app: { ...state.app, isLoading: true } });
   MessengerApi.deleteChatByID(action)
     .then(res => {
       if (res.status === 200) {
-        PathRouter.go('/messenger');
+        AppRouter.go('/messenger');
         return;
       }
       if (res.status >= 400) {
@@ -142,7 +142,7 @@ const deleteChatByIdDispatch: DispatchStateHandler<string> = async (dispatch, st
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: true });
+      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 

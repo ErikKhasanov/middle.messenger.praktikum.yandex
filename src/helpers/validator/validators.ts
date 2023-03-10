@@ -137,12 +137,12 @@ export const VALIDATORS_MAP = {
     },
 };
 
-export const concatValidators = validatorsArray => {
+export const concatValidators = (validatorsArray: { (): boolean | IValidatorError }[]) => {
   let text = '';
   validatorsArray.some(validator => {
     const result: IValidatorFunc = validator();
     if (typeof result === 'object') {
-      text = result.text;
+      text = result.text!;
       return true;
     }
     return false;

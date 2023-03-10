@@ -1,22 +1,26 @@
 /* eslint-disable no-unused-vars */
-import { Block } from 'core';
+import { Block, AppStore } from 'core';
 import UserController from 'controllers/UserController';
 
-import { withStore } from 'HOC/withStore';
+import connectStore from 'HOC/connectStore';
 
 import { DEFAULT_AVATAR } from 'configs/config';
 
-class ProfilePage extends Block {
+interface IProfilePageProps {
+  user: User;
+}
+
+class ProfilePage extends Block<IProfilePageProps> {
   protected getStateFromProps(_props: any): void {
     this.state = {
       onLogout: () => {
-        this.props.store.dispatch(UserController.logout);
+        AppStore.dispatch(UserController.logout);
       },
     };
   }
 
   render() {
-    const { login, email, phone, first_name, second_name, display_name, avatar } = this.props.store.state.user;
+    const { login, email, phone, first_name, second_name, display_name, avatar } = this.props.user;
     const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : DEFAULT_AVATAR;
     return `
     {{#Layout isLoading=store.state.isLoading}}
@@ -50,4 +54,7 @@ class ProfilePage extends Block {
   }
 }
 
-export default withStore(ProfilePage);
+const mapStateToProps = (state: AppState) => ({
+  user: state.user,
+});
+export default connectStore(mapStateToProps)(ProfilePage);

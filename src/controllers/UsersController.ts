@@ -1,7 +1,7 @@
 import UsersApi, { IChangeProfile, IChangePassword, IChangeAvatar } from 'api/UsersApi';
 
-const changeProfileDispatch: DispatchStateHandler<IChangeProfile> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const changeProfileDispatch: DispatchStateHandler<IChangeProfile> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   UsersApi.changeProfie(action)
     .then(res => {
       const response = JSON.parse(res.response);
@@ -20,12 +20,12 @@ const changeProfileDispatch: DispatchStateHandler<IChangeProfile> = async (dispa
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state, isLoading: true } });
     });
 };
 
-const changeAvatarDispatch: DispatchStateHandler<IChangeAvatar> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const changeAvatarDispatch: DispatchStateHandler<IChangeAvatar> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   UsersApi.changeAvatar(action)
     .then(res => {
       const response = JSON.parse(res.response);
@@ -44,12 +44,12 @@ const changeAvatarDispatch: DispatchStateHandler<IChangeAvatar> = async (dispatc
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state, isLoading: true } });
     });
 };
 
-const changePasswordDispatch: DispatchStateHandler<IChangePassword> = async (dispatch, _state, action) => {
-  dispatch({ isLoading: true });
+const changePasswordDispatch: DispatchStateHandler<IChangePassword> = async (dispatch, state, action) => {
+  dispatch({ app: { ...state.app, isLoading: true } });
   UsersApi.changePassword(action)
     .then(res => {
       if (res.status !== 200) {
@@ -68,7 +68,7 @@ const changePasswordDispatch: DispatchStateHandler<IChangePassword> = async (dis
       console.error(error);
     })
     .finally(() => {
-      dispatch({ isLoading: false });
+      dispatch({ app: { ...state.app, isLoading: true } });
     });
 };
 

@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { Block } from 'core';
+import { Block, AppStore } from 'core';
+
+import connectStore from 'HOC/connectStore';
 
 import PROFILE_VALIDATOR from 'helpers/validator/profileValidators';
-import { withStore } from 'HOC/withStore';
 
 import UsersController from 'controllers/UsersController';
 
@@ -46,9 +47,14 @@ const INIT_STATE: IForm = {
   },
 };
 
-class SettingsPage extends Block {
-  componentDidMount(props: any): void {
-    const { email, login, first_name, second_name, phone, display_name } = this.props.store.state.user;
+interface ISettingsPageProps {
+  user: User;
+  store: AppState;
+}
+
+class SettingsPage extends Block<ISettingsPageProps> {
+  componentDidMount(): void {
+    const { email, login, first_name, second_name, phone, display_name } = this.props.user;
     this.setState({
       values: {
         email: email,
@@ -63,12 +69,12 @@ class SettingsPage extends Block {
 
   getInputsValues(): IForm['values'] {
     return {
-      login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
-      email: (this.refs.emailRef.lastElementChild as HTMLInputElement).value,
-      phone: (this.refs.phoneRef.lastElementChild as HTMLInputElement).value,
-      first_name: (this.refs.firsNameRef.lastElementChild as HTMLInputElement).value,
-      second_name: (this.refs.secondNameRef.lastElementChild as HTMLInputElement).value,
-      display_name: (this.refs.displayNameRef.lastElementChild as HTMLLIElement).value,
+      login: (this.refs.loginRef.node.lastElementChild as HTMLInputElement).value,
+      email: (this.refs.emailRef.node.lastElementChild as HTMLInputElement).value,
+      phone: (this.refs.phoneRef.node.lastElementChild as HTMLInputElement).value,
+      first_name: (this.refs.firsNameRef.node.lastElementChild as HTMLInputElement).value,
+      second_name: (this.refs.secondNameRef.node.lastElementChild as HTMLInputElement).value,
+      display_name: (this.refs.displayNameRef.node.lastElementChild as HTMLInputElement).value,
     };
   }
 
@@ -87,7 +93,7 @@ class SettingsPage extends Block {
     this.state = {
       ...INIT_STATE,
 
-      onBlur: e => {
+      onBlur: (e: InputTarget) => {
         const field = e.target.id as keyof IForm['values'];
         // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
@@ -99,20 +105,23 @@ class SettingsPage extends Block {
         this.setState(nextState);
       },
 
-      onFocus: e => {
+      onFocus: (e: InputTarget) => {
         const field = e.target.id as keyof IForm['values'];
         if (!this.state.errors[field]) return;
-        const label = document.forms.settings.elements[field].labels[0];
+        const elements: FormElements = document.forms;
+        const label = elements.settings.elements[field].labels[0];
         label.removeChild(label.lastElementChild);
       },
 
-      onInput: e => {
+      onInput: (e: InputTarget) => {
         const field = e.target.id as keyof IForm['values'];
         const { value } = e.target;
-        document.forms.settings.elements[field].setAttribute('value', value);
+        const elements: FormElements = document.forms;
+        elements.settings.elements[field].setAttribute('value', value);
       },
 
-      onChangeProfile: () => {
+      onChangeProfile: (e: InputTarget) => {
+        e.preventDefault();
         const formData = this.getInputsValues();
         const errors = this.validateForm(formData);
 
@@ -127,24 +136,22 @@ class SettingsPage extends Block {
           return;
         }
 
-        this.props.store.dispatch(UsersController.changeProfile, formData);
-        console.log(formData);
+        AppStore.dispatch(UsersController.changeProfile, formData);
       },
 
-      onChangeAvatar: e => {
+      onChangeAvatar: (e: InputTarget) => {
         e.preventDefault();
-        const avatar = document.getElementById('avatar').files[0];
+        const avatar = (document.getElementById('avatar') as HTMLFormElement).files[0];
         const form = new FormData();
         form.append('avatar', avatar);
-        console.log(form);
-        this.props.store.dispatch(UsersController.changeAvatar, form);
+        AppStore.dispatch(UsersController.changeAvatar, form);
       },
 
       onChangePassword: () => {
         // TODO сделать валидацию
         const oldPassword = prompt('Введите старый пароль');
         const newPassword = prompt('Введите новый пароль');
-        this.props.store.dispatch(UsersController.changePassword, {
+        AppStore.dispatch(UsersController.changePassword, {
           oldPassword: oldPassword,
           newPassword: newPassword,
         });
@@ -154,7 +161,7 @@ class SettingsPage extends Block {
 
   render() {
     const { values, errors } = this.state;
-    const { avatar } = this.props.store.state.user;
+    const { avatar } = this.props.user;
     const avatarUrl = avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : DEFAULT_AVATAR;
 
     return `
@@ -191,4 +198,7 @@ class SettingsPage extends Block {
   }
 }
 
-export default withStore(SettingsPage);
+const mapStateToProps = (state: AppState) => ({
+  user: state.user,
+});
+export default connectStore(mapStateToProps)(SettingsPage);

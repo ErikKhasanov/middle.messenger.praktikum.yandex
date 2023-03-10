@@ -1,14 +1,27 @@
-import { Dispatch } from 'core/Store';
 import UserApi from 'api/UserApi';
 
-const InitApp = (dispatch: Dispatch<AppState>) => {
+const InitApp = (dispatch: Dispatch<AppState>, state: AppState) => {
   UserApi.getUser()
     .then(res => {
       if (res.status === 200) {
-        dispatch({ appIsInited: true, user: JSON.parse(res.response) });
+        dispatch({
+          ...state,
+          app: {
+            ...state.app,
+            appIsInited: true,
+          },
+          user: JSON.parse(res.response),
+        });
       }
       if (res.status === 401) {
-        dispatch({ appIsInited: true, user: null });
+        dispatch({
+          ...state,
+          app: {
+            ...state.app,
+            appIsInited: true,
+          },
+          user: undefined,
+        });
       }
     })
     .catch(error => {

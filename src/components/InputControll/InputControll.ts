@@ -2,7 +2,7 @@ import Block from 'core/Block';
 
 import './input.css';
 
-interface IInput {
+interface IInputProps {
   id: string;
   name: string;
   type?: string;
@@ -15,10 +15,10 @@ interface IInput {
   onInput?: () => void;
 }
 
-export class InputControll extends Block {
+export class InputControll extends Block<IInputProps> {
   static componentName = 'InputControll';
 
-  constructor({ onFocus, onBlur, onInput, id, name, type, label, inputValue, placeHolder, errorText }: IInput) {
+  constructor({ onFocus, onBlur, onInput, id, name, type, label, inputValue, placeHolder, errorText }: IInputProps) {
     super({
       id,
       name,
