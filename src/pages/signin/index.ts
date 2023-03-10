@@ -141,7 +141,7 @@ class SigninPage extends Block {
           {{{Button label="Авторизоваться" onClick=onLogin}}}
         </form>
         <div class="registration-link">
-          {{{Link label="Нет аккаунта?" route="/sign-up"}}}
+          {{{Link label="Нет аккаунта?" route="/signup"}}}
         </div>
         </div>
       </main>

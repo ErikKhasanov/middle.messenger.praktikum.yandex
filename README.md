@@ -11,5 +11,3 @@
 - Сборка контейнера `docker build -t messenger .`
 - Запуск контейнера `docker run -p 3000:3000 -d messenger`
 - Остановка контейнера `docker stop CONTAINER_NAME`
-
-

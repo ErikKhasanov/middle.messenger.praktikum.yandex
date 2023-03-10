@@ -1,4 +1,4 @@
-import { Block, AppStore } from 'core';
+import { Block, AppStore, AppRouter } from 'core';
 
 import UserController from 'controllers/UserController';
 

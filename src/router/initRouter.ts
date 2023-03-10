@@ -1,12 +1,12 @@
-import { APP_ROUTES } from './config';
 import renderDOM from 'core/renderDOM';
 import Router from 'core/Router';
 import Store from 'core/Store';
+import { APP_ROUTES } from './config';
 
 export function initRouter(router: typeof Router, store: typeof Store) {
   APP_ROUTES.forEach(route => {
     router.use(route.path, (params: { [key: string]: string }) => {
-      const isAuthorized = Boolean(store.getState().user?.login);
+      const isAuthorized = Boolean(store.getState().user);
       const currentScreen = Boolean(store.getState().app.screen);
       if (isAuthorized || !route.shouldAuthorized) {
         if (route.path === '/') {

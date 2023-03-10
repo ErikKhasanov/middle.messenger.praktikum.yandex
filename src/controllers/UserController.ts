@@ -33,14 +33,13 @@ const signInDispatch: DispatchStateHandler<ISigninData> = async (dispatch, state
     });
 };
 
-const signUpDispatch: DispatchStateHandler<ISignupData> = async (dispatch, state, action) => {
-  dispatch({ app: { ...state.app, isLoading: true } });
+const signUpDispatch: DispatchStateHandler<ISignupData> = async (dispatch, _state, action) => {
   UserApi.signup(action)
     .then(res => {
       if (res.status === 200) {
         dispatch({ user: JSON.parse(res.response) });
-        AppRouter.go('/chats');
-        return;
+        AppRouter.go('/messenger');
+        return JSON.parse(res.response);
       }
       if (res.status >= 400) {
         throw new Error(res.response);
@@ -53,9 +52,6 @@ const signUpDispatch: DispatchStateHandler<ISignupData> = async (dispatch, state
     .catch(error => {
       alert('Произошла ошибка, попробуйте позднее');
       console.error(error);
-    })
-    .finally(() => {
-      dispatch({ app: { ...state.app, isLoading: false } });
     });
 };
 
