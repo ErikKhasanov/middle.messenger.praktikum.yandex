@@ -31,7 +31,6 @@ describe('test Block class', () => {
       test: 'test',
     };
     testComponent.setProps(newProps);
-    console.log('testComponent.props', testComponent.props);
     expect(testComponent.props).toEqual(Object.assign(MOCK_PROPS, newProps));
   });
 });

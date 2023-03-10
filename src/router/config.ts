@@ -11,12 +11,12 @@ import SettingsPage from 'pages/settings';
 
 export const APP_ROUTES = [
   {
-    path: '/login',
+    path: '/signin',
     block: SigninPage,
     shouldAuthorized: false,
   },
   {
-    path: '/sign-up',
+    path: '/signup',
     block: SignupPage,
     shouldAuthorized: false,
   },

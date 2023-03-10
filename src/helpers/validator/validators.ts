@@ -138,7 +138,6 @@ export const VALIDATORS_MAP = {
 };
 
 export const concatValidators = (validatorsArray: { (): boolean | IValidatorError }[]) => {
-  console.log(validatorsArray);
   let text = '';
   validatorsArray.some(validator => {
     const result: IValidatorFunc = validator();

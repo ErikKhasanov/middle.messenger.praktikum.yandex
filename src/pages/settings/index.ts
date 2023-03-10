@@ -137,7 +137,6 @@ class SettingsPage extends Block<ISettingsPageProps> {
         }
 
         AppStore.dispatch(UsersController.changeProfile, formData);
-        console.log(formData);
       },
 
       onChangeAvatar: (e: InputTarget) => {
@@ -145,7 +144,6 @@ class SettingsPage extends Block<ISettingsPageProps> {
         const avatar = (document.getElementById('avatar') as HTMLFormElement).files[0];
         const form = new FormData();
         form.append('avatar', avatar);
-        console.log(form);
         AppStore.dispatch(UsersController.changeAvatar, form);
       },
 

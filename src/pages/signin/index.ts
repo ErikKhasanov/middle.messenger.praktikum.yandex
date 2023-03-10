@@ -115,7 +115,6 @@ class SigninPage extends Block {
       onLogin: (e: InputTarget) => {
         e.preventDefault();
         const formData = this.getInputsValues();
-        console.log('formData', formData);
         const errors = this.validateForm(formData);
         const nextState = {
           errors: { ...errors },
@@ -124,7 +123,6 @@ class SigninPage extends Block {
         this.setState(nextState);
         if (errors.login || errors.password) return;
         AppStore.dispatch(UserController.signin, formData);
-        console.log(formData);
       },
     };
   }
@@ -143,7 +141,7 @@ class SigninPage extends Block {
           {{{Button label="Авторизоваться" onClick=onLogin}}}
         </form>
         <div class="registration-link">
-          {{{Link label="Нет аккаунта?" route="/sign-up"}}}
+          {{{Link label="Нет аккаунта?" route="/signup"}}}
         </div>
         </div>
       </main>

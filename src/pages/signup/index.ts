@@ -1,4 +1,4 @@
-import { Block, AppStore } from 'core';
+import { Block, AppStore, AppRouter } from 'core';
 
 import UserController from 'controllers/UserController';
 
@@ -110,7 +110,6 @@ class SignupPage extends Block {
           return;
         }
         AppStore.dispatch(UserController.signup, formData);
-        console.log(formData);
       },
     };
   }
