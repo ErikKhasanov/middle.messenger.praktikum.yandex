@@ -110,7 +110,6 @@ class SignupPage extends Block {
           return;
         }
         AppStore.dispatch(UserController.signup, formData);
-        console.log(formData);
       },
     };
   }
