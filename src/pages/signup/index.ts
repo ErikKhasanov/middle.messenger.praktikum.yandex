@@ -1,8 +1,6 @@
-import { Block } from 'core';
+import { Block, AppStore } from 'core';
 
 import UserController from 'controllers/UserController';
-
-import { withStore } from 'HOC/withStore';
 
 import REGISTRATION_VALIDATOR from 'helpers/validator/registrationValidator';
 
@@ -47,12 +45,12 @@ const INIT_STATE: IForm = {
 class SignupPage extends Block {
   getInputsValues(): IForm['values'] {
     return {
-      login: (this.refs.loginRef.lastElementChild as HTMLInputElement).value,
-      email: (this.refs.emailRef.lastElementChild as HTMLInputElement).value,
-      phone: (this.refs.phoneRef.lastElementChild as HTMLInputElement).value,
-      first_name: (this.refs.firsNameRef.lastElementChild as HTMLInputElement).value,
-      second_name: (this.refs.secondNameRef.lastElementChild as HTMLInputElement).value,
-      password: (this.refs.passwordRef.lastElementChild as HTMLInputElement).value,
+      login: (this.refs.loginRef.node.lastElementChild as HTMLInputElement).value,
+      email: (this.refs.emailRef.node.lastElementChild as HTMLInputElement).value,
+      phone: (this.refs.phoneRef.node.lastElementChild as HTMLInputElement).value,
+      first_name: (this.refs.firsNameRef.node.lastElementChild as HTMLInputElement).value,
+      second_name: (this.refs.secondNameRef.node.lastElementChild as HTMLInputElement).value,
+      password: (this.refs.passwordRef.node.lastElementChild as HTMLInputElement).value,
     };
   }
 
@@ -71,7 +69,7 @@ class SignupPage extends Block {
     this.state = {
       ...INIT_STATE,
 
-      onBlur: e => {
+      onBlur: (e: InputTarget) => {
         const field = e.target.id as keyof IForm['values'];
         // TODO сделать валидацию по одному полю
         const values = this.getInputsValues();
@@ -83,20 +81,21 @@ class SignupPage extends Block {
         this.setState(nextState);
       },
 
-      onFocus: e => {
-        const field = e.target.id as keyof IForm['values'];
+      onFocus: (e: InputTarget) => {
+        const field = e?.target?.id as keyof IForm['values'];
         if (!this.state.errors[field]) return;
-        const label = document.forms.registration.elements[field].labels[0];
+        const label = (document.forms as any).registration.elements[field].labels[0];
         label.removeChild(label.lastElementChild);
       },
 
-      onInput: e => {
+      onInput: (e: InputTarget) => {
         const field = e.target.id as keyof IForm['values'];
         const { value } = e.target;
-        document.forms.registration.elements[field].setAttribute('value', value);
+        (document.forms as any).registration.elements[field].setAttribute('value', value);
       },
 
-      onRegistration: () => {
+      onRegistration: (e: InputEvent) => {
+        e.preventDefault();
         const formData = this.getInputsValues();
         const errors = this.validateForm(formData);
 
@@ -110,7 +109,7 @@ class SignupPage extends Block {
         if (errors.email || errors.login || errors.password || errors.phone || errors.first_name || errors.second_name) {
           return;
         }
-        this.props.store.dispatch(UserController.signup, formData);
+        AppStore.dispatch(UserController.signup, formData);
         console.log(formData);
       },
     };
@@ -142,4 +141,4 @@ class SignupPage extends Block {
   }
 }
 
-export default withStore(SignupPage);
+export default SignupPage;

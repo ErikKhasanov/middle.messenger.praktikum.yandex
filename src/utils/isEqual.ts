@@ -1,37 +1,19 @@
-import isArray from './isArray';
 import isObject from './isObject';
 
-type PlainObject<T = unknown> = {
-  [key: string]: T;
-};
-
-import isArrayOrObject from './isArrayOrObject';
-
-function isEqual(lhs: PlainObject, rhs: PlainObject) {
-  if (Object.keys(lhs).length !== Object.keys(rhs).length) {
+function isEqual(object1: object, object2: object): boolean {
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+  if (keys1.length !== keys2.length) {
     return false;
   }
-
-  if ((isObject(lhs) && !isObject(rhs)) || (isArray(lhs) && !isArray(rhs))) {
-    return false;
-  }
-
-  for (const [key, value] of Object.entries(lhs)) {
-    const rightValue = rhs[key];
-    if (isArrayOrObject(value) && isArrayOrObject(rightValue)) {
-      // Здесь value и rightValue может быть только массивом или объектом
-      // и TypeScript это понимает с помощью Type Guard
-      if (isEqual(value, rightValue)) {
-        continue;
-      }
-      return false;
-    }
-
-    if (value !== rightValue) {
+  for (const key of keys1) {
+    const val1 = object1[key as keyof typeof object1];
+    const val2 = object2[key as keyof typeof object1];
+    const areObjects = isObject(val1) && isObject(val2);
+    if ((areObjects && !isEqual(val1, val2)) || (!areObjects && val1 !== val2)) {
       return false;
     }
   }
-
   return true;
 }
 

@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
-import EventBus from './EventBus';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DEFAULT_STATE } from '../store/initialStore';
+import EventBus from 'core/EventBus';
 
-export type Dispatch<State> = (nextStateOrAction: Partial<State> | Action<State>, payload?: any) => void;
-
-export type Action<State> = (dispatch: Dispatch<State>, state: State, payload: any) => void;
-
-export default class Store<State extends Record<string, any>> extends EventBus {
+export class Store<State extends Record<string, any>> extends EventBus {
   private state: State = {} as State;
 
   constructor(defaultState: State) {
@@ -35,3 +32,7 @@ export default class Store<State extends Record<string, any>> extends EventBus {
     }
   }
 }
+
+export const AppStore = new Store<AppState>(DEFAULT_STATE as AppState);
+
+export default AppStore;

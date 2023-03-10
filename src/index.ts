@@ -1,8 +1,8 @@
-import { registerComponent, Store } from 'core';
-import { initRouter } from 'router/Router';
-import { PathRouter } from 'router/pathRouter';
-
-import InitApp from 'controllers/InitApp';
+import { registerComponent } from 'core';
+import AppRouter from 'core/Router';
+import AppStore from 'core/Store';
+import InitApp from './controllers/InitApp';
+import { initRouter } from 'router/initRouter';
 
 // Styles
 import 'styles/main.css';
@@ -28,42 +28,10 @@ registerComponent(FileForm);
 registerComponent(User);
 registerComponent(Layout);
 
-declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Window {
-    store: Store<AppState>;
-    router: CoreRouter;
-  }
-}
-
-const DEFAULT_STATE = {
-  appIsInited: false,
-  screen: null,
-  isLoading: false,
-  user: null,
-};
-
 document.addEventListener('DOMContentLoaded', () => {
-  const store = new Store<AppState>(DEFAULT_STATE);
-  const router = PathRouter.getInstance();
-
-  /**
-   * Помещаем роутер и стор в глобальную область для доступа в хоках with*
-   * @warning Не использовать такой способ на реальный проектах
-   */
-  window.store = store;
-
-  store.on('changed', (prevState, nextState) => {
+  AppStore.dispatch(InitApp);
+  initRouter(AppRouter, AppStore);
+  AppStore.on('changed', (_prevState, nextState) => {
     console.log('%cstore updated', 'background: #222; color: #bada55', nextState);
   });
-
-  /**
-   * Инициализируем роутер
-   */
-  initRouter(router, store);
-
-  /**
-   * Загружаем данные для приложения
-   */
-  store.dispatch(InitApp);
 });

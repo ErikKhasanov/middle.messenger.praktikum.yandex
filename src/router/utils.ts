@@ -1,4 +1,4 @@
-export const comparePath = (routerPath, path) => {
+export const comparePath = (routerPath: string, path: string) => {
   const lpath = routerPath.split('/');
   const rpath = path.split('/');
 
@@ -14,8 +14,8 @@ export const comparePath = (routerPath, path) => {
   });
 };
 
-export const getVariablesFromPath = (routerPath, path) => {
-  const params = {};
+export const getVariablesFromPath = (routerPath: string, path: string) => {
+  const params: { [key: string]: string } = {};
   const rHash = routerPath.split('/');
   const pName = path.split('/');
   rHash.forEach((item, index) => {

@@ -1,9 +1,9 @@
 import Block from 'core/Block';
-import withRouter from 'HOC/withRouter';
+import AppRouter from 'core/Router';
 
 import './link.css';
 
-interface IButton {
+interface IButtonProps {
   label: string;
   route: string;
 }
@@ -11,13 +11,13 @@ interface IButton {
 class Link extends Block {
   static componentName = 'Link';
 
-  constructor({ label, route, router }: IButton) {
+  constructor({ label, route }: IButtonProps) {
     super({
       label,
       events: {
-        click: e => {
+        click: (e: { preventDefault: () => void }) => {
           e.preventDefault();
-          router.go(route);
+          AppRouter.go(route);
         },
       },
     });
@@ -28,4 +28,4 @@ class Link extends Block {
   }
 }
 
-export default withRouter(Link);
+export default Link;

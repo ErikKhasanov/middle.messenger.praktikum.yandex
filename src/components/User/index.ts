@@ -2,22 +2,21 @@ import Block from 'core/Block';
 
 import './user.css';
 
-interface IUser {
+interface IUserProps {
   displayName: string;
   firstName: string;
   secondName: string;
   avatar: string;
   id: string;
-  chatId: string;
-  onRemove: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onRemove: (id: string) => void;
 }
 
 const DEFAULT_AVATAR = 'https://via.placeholder.com/100';
-
-class User extends Block {
+class User extends Block<IUserProps> {
   static componentName = 'User';
 
-  constructor({ displayName, firstName, secondName, avatar, id, onRemove }: IUser) {
+  constructor({ displayName, firstName, secondName, avatar, id, onRemove }: IUserProps) {
     super({ displayName, firstName, secondName, avatar, id, onRemove });
   }
 
