@@ -8,8 +8,8 @@ export const DEFAULT_STATE: Partial<AppState> = {
   chats: undefined,
   currentChat: {
     usersInChat: undefined,
-    messages: undefined,
   },
+  messages: undefined,
   user: undefined,
   socket: undefined,
 };

@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-underscore-dangle */
-import { nanoid } from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
+// import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import isEqual from 'utils/isEqual';
 import cloneDeep from 'utils/cloneDeep';
@@ -41,7 +42,7 @@ class Block<P extends object = {}> {
 
   static componentName: string;
 
-  public id = nanoid(6);
+  public id = uuidv4();
 
   public node: Nullable<HTMLElement> = null;
 
